@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+home="$(realpath "$(realpath "${BASH_SOURCE[0]}" | xargs dirname)"/.)"
+cd "$home"
+
+#-----------------------------------------------------------------------------------------------------------
+# thx to https://aweirdimagination.net/2020/06/28/kill-child-jobs-on-script-exit/
+cleanup() {
+    # kill all processes whose parent is this process
+    pkill -P $$
+}
+
+for sig in INT QUIT HUP TERM; do
+  trap "
+    cleanup
+    trap - $sig EXIT
+    kill -s $sig "'"$$"' "$sig"
+done
+trap cleanup EXIT
+
+#-----------------------------------------------------------------------------------------------------------
+node demo/start &
+chromium --app=http://localhost:3000
+
