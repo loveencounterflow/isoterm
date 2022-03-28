@@ -20,6 +20,6 @@ for sig in INT QUIT HUP TERM; do
 trap cleanup EXIT
 
 #-----------------------------------------------------------------------------------------------------------
-node demo/start.js &
+node ../app/start.js &
 chromium --app=http://localhost:3000
 
