@@ -1,0 +1,27 @@
+{
+  "name": "xxterm",
+  "version": "0.0.2",
+  "description": "A Terminal With Precisely Configurable Fonts Using CSS Unicode Ranges",
+  "main": "./.",
+  "scripts": {
+    "test": "./."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loveencounterflow/xxterm.git"
+  },
+  "keywords": [
+    "xterm",
+    "terminal",
+    "webterm",
+    "unicode",
+    "css",
+    "ranges"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loveencounterflow/xxterm/issues"
+  },
+  "homepage": "https://github.com/loveencounterflow/xxterm#readme"
+}
