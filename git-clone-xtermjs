@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+home="$(realpath "$(realpath "${BASH_SOURCE[0]}" | xargs dirname)"/.)"
+cd "$home"
+
+#-----------------------------------------------------------------------------------------------------------
+git clone https://github.com/xtermjs/xterm.js xterm
+cd xterm
+git reset --hard bb2367ab4a05d7c8e6f915a3bdb7214f52121d13
