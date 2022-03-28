@@ -28,6 +28,9 @@
 * **[–]** Avoid connection error on startup (by using a splash screen?)
 * **[–]** icon
 * **[–]** move `xterm` code out of main folder
+* **[–]** implement useful action (re-clone, update, cancel) to `git-clone-xtermjs` in case folder `xterm`
+  should already exist
+  * **[–]** make digest or tag to revert to configurable?
 
 
 
