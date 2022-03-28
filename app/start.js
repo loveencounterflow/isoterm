@@ -5,9 +5,13 @@
  * This file is the entry point for browserify.
  */
 
-const path = require('path');
-const webpack = require('webpack');
-const startServer = require('./server.js');
+
+/* ### TAINT use helper module with `require_from_xterm()` method */
+const PATH          = require('path');
+const xterm_path    = PATH.resolve( PATH.join( __dirname, '../xterm' ) );
+const webpack_path  = require.resolve( 'webpack', { paths: [ xterm_path, ], } );
+const webpack       = require( webpack_path );
+const startServer   = require('./server.js');
 
 startServer();
 
@@ -22,7 +26,7 @@ startServer();
  * validating that the packaged version works correctly.
  */
 const clientConfig = {
-  entry: path.resolve(__dirname, 'client.ts'),
+  entry: PATH.resolve(__dirname, 'client.ts'),
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -42,13 +46,13 @@ const clientConfig = {
   resolve: {
     modules: [
       'node_modules',
-      path.resolve(__dirname, '..'),
-      path.resolve(__dirname, '../addons')
+      PATH.resolve(__dirname, '..'),
+      PATH.resolve(__dirname, '../addons')
     ],
     extensions: [ '.tsx', '.ts', '.js' ],
     alias: {
-      common: path.resolve('./out/common'),
-      browser: path.resolve('./out/browser')
+      common: PATH.resolve('./out/common'),
+      browser: PATH.resolve('./out/browser')
     },
     fallback: {
       // The ligature modules contains fallbacks for node environments, we never want to browserify them
@@ -61,7 +65,7 @@ const clientConfig = {
   },
   output: {
     filename: 'client-bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: PATH.resolve(__dirname, 'dist')
   },
   mode: 'development',
   watch: true

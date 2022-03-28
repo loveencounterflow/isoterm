@@ -4,10 +4,16 @@
  * demo to the public as is would introduce security risks for the host.
  **/
 
-var express = require('express');
-var expressWs = require('express-ws');
-var os = require('os');
-var pty = require('node-pty');
+/* ### TAINT use helper module with `require_from_xterm()` method */
+const PATH            = require('path');
+const xterm_path      = PATH.resolve( PATH.join( __dirname, '../xterm' ) );
+const express_path    = require.resolve( 'express', { paths: [ xterm_path, ], } );
+const expressWs_path  = require.resolve( 'express-ws', { paths: [ xterm_path, ], } );
+const pty_path        = require.resolve( 'node-pty', { paths: [ xterm_path, ], } );
+var express           = require( express_path );
+var expressWs         = require( expressWs_path );
+var os                = require('os');
+var pty               = require( pty_path );
 
 // Whether to use binary transport.
 const USE_BINARY = os.platform() !== "win32";
@@ -19,7 +25,7 @@ function startServer() {
   var terminals = {},
       logs = {};
 
-  app.use('/xterm.css', express.static(__dirname + '/../css/xterm.css'));
+  app.use('/xterm.css', express.static( __dirname + '/xterm.css' ) );
   app.get('/logo.png', (req, res) => { // lgtm [js/missing-rate-limiting]
     res.sendFile(__dirname + '/logo.png');
   });
