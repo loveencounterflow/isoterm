@@ -5,6 +5,59 @@ home="$(realpath "$(realpath "${BASH_SOURCE[0]}" | xargs dirname)"/.)"
 cd "$home"
 
 #-----------------------------------------------------------------------------------------------------------
-git clone https://github.com/xtermjs/xterm.js xterm
-cd xterm
-git reset --hard bb2367ab4a05d7c8e6f915a3bdb7214f52121d13
+blink='\x1b[5m'
+bold='\x1b[1m'
+reverse='\x1b[7m'
+underline='\x1b[4m'
+reset='\x1b[0m'
+black='\x1b[38;05;16m'
+blue='\x1b[38;05;27m'
+green='\x1b[38;05;34m'
+cyan='\x1b[38;05;51m'
+sepia='\x1b[38;05;52m'
+indigo='\x1b[38;05;54m'
+steel='\x1b[38;05;67m'
+brown='\x1b[38;05;94m'
+olive='\x1b[38;05;100m'
+lime='\x1b[38;05;118m'
+red='\x1b[38;05;124m'
+crimson='\x1b[38;05;161m'
+plum='\x1b[38;05;176m'
+pink='\x1b[38;05;199m'
+orange='\x1b[38;05;208m'
+gold='\x1b[38;05;214m'
+tan='\x1b[38;05;215m'
+yellow='\x1b[38;05;226m'
+grey='\x1b[38;05;240m'
+darkgrey='\x1b[38;05;234m'
+white='\x1b[38;05;255m'
+
+#-----------------------------------------------------------------------------------------------------------
+if [ -d xterm ]; then
+  echo -e "$reverse$green directory xterm exists; updating $reset"
+  cd xterm
+  git pull
+else
+  echo -e "$reverse$red directory xterm does not exist; cloning $reset"
+  git clone https://github.com/xtermjs/xterm.js xterm
+  cd xterm
+  fi
+
+digest=bb2367ab4a05d7c8e6f915a3bdb7214f52121d13
+echo -e "$reverse$green resetting to commit $digest $reset"
+# thx to https://devopscube.com/checkout-clone-specific-git-commit-id-sha/
+git reset --hard "$digest"
+
+# thx to https://stackoverflow.com/a/6569511
+path_to_executable=$(command -v pnpm)
+if [ -x "$path_to_executable" ] ; then
+  echo -e "$reverse$green using pnpm to install xterm deps $reset"
+  pnpm install
+else
+  echo -e "$reverse$green using npm to install xterm deps $reset"
+  npm install
+  fi
+
+echo -e "$reverse$green installed xterm@$digest $reset"
+
+
