@@ -62,6 +62,7 @@ window.
 * **[–]** make browser configurable (now hardcoded to `chromium`)
 * **[–]** try to avoid the startup delay caused having to wait for webpack (by including bundled code in
   `dist` or by removing webpack altogether)
+* **[–]** use exit handler to ensure server process gets terminated
 
 
 
