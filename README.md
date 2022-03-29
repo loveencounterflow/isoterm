@@ -31,6 +31,8 @@
 * **[+]** implement useful action (re-clone, update, cancel) to `git-clone-xtermjs` in case folder `xterm`
   should already exist (NB `git reset --hard` can be redone without changing anything)
 * **[–]** make digest or tag to revert to configurable?
+* **[–]** while it is possible to run several independent shell clients that all use a single server (on port 3000), the disadvantage
+  of re-using the server
 
 
 
