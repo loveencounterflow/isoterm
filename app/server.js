@@ -145,7 +145,8 @@ function startServer() {
       host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
 
   console.log('App listening to http://127.0.0.1:' + port);
-  app.listen(port, host);
+  app.listen( port, host, () =>
+    { process.send( { $key: '^connect', port, } ) } );
 }
 
 module.exports = startServer;

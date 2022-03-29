@@ -31,21 +31,31 @@ parse_arguments = ->
     process.exit 1
 
 #-----------------------------------------------------------------------------------------------------------
-start_server = ->
+start_server = -> new Promise ( resolve, reject ) =>
   process.chdir xterm_path
   cp_cfg  = { detached: false, }
   server  = CP.fork start_path, cp_cfg
   server.on 'error', ( error ) => warn '^server@445-2^', error
-  server.on 'close',      => whisper '^server@445-3^', 'close'
-  server.on 'disconnect', => whisper '^server@445-4^', 'disconnect'
-  server.on 'error',      => whisper '^server@445-5^', 'error'
-  server.on 'exit',       => whisper '^server@445-6^', 'exit'
-  server.on 'message',    => whisper '^server@445-7^', 'message'
-  server.on 'spawn',      => whisper '^server@445-8^', 'spawn'
-  help '^445-9^', 'Server started'
+  server.on 'message', ( message ) =>
+    # info '^server@445-3^', message
+    switch message?.$key ? null
+      when '^connect'
+        { port } = message
+        help "^server@445-4^ serving on port #{rpr port}"
+        resolve { server, port, }
+      else
+        warn "^server@445-5^ unknown message format: #{rpr message}"
+    return null
+  server.on 'close',      => whisper '^server@445-6^', 'close'
+  server.on 'disconnect', => whisper '^server@445-7^', 'disconnect'
+  server.on 'error',      => whisper '^server@445-8^', 'error'
+  server.on 'exit',       => whisper '^server@445-9^', 'exit'
+  server.on 'message',    => whisper '^server@445-10^', 'message'
+  server.on 'spawn',      => whisper '^server@445-11^', 'spawn'
+  # help '^445-12^', 'Server started'
+  # debug '^445-13^', server.channel
   ### TAINT get or set port ###
-  port = 3000
-  return { server, port, }
+  return null
 
 #-----------------------------------------------------------------------------------------------------------
 start_browser = ( cfg ) ->
@@ -58,25 +68,27 @@ start_browser = ( cfg ) ->
   parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   browser     = CP.spawn cmd, parameters, cp_cfg
-  browser.on 'error', ( error ) => warn '^browser@445-10^', error
-  browser.on 'close',      => whisper '^browser@445-11^', 'close'
-  browser.on 'disconnect', => whisper '^browser@445-12^', 'disconnect'
-  browser.on 'error',      => whisper '^browser@445-13^', 'error'
-  browser.on 'exit',       => whisper '^browser@445-14^', 'exit'; server.kill()
-  browser.on 'message',    => whisper '^browser@445-15^', 'message'
-  browser.on 'spawn',      => whisper '^browser@445-16^', 'spawn'
+  browser.on 'error', ( error ) => warn '^browser@445-14^', error
+  browser.on 'close',      => whisper '^browser@445-15^', 'close'
+  browser.on 'disconnect', => whisper '^browser@445-16^', 'disconnect'
+  browser.on 'error',      => whisper '^browser@445-17^', 'error'
+  browser.on 'exit',       => whisper '^browser@445-18^', 'exit'; server.kill()
+  browser.on 'message',    => whisper '^browser@445-19^', 'message'
+  browser.on 'spawn',      => whisper '^browser@445-20^', 'spawn'
   return { browser, }
 
 #-----------------------------------------------------------------------------------------------------------
 run = ->
   parse_arguments()
-  { server, port, } = start_server()
+  { server, port, } = await start_server()
   start_browser { server, port, }
-  info '^445-17^', { start_path, xterm_path }
+  info '^445-21^', { start_path, xterm_path }
   return null
 
+
 ############################################################################################################
-run()
+do =>
+  await run()
 
 
 
