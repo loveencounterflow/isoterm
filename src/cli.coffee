@@ -32,19 +32,36 @@ parse_arguments = ->
 
 #-----------------------------------------------------------------------------------------------------------
 start_server = -> new Promise ( resolve, reject ) =>
+  port    = null
+  signals =
+    webpack:    false
+    server:     false
+    browser:    false
+  #.........................................................................................................
+  conclude = ( signal ) =>
+    signals[ signal ] = true
+    if signals.webpack and signals.server and ( not signals.browser )
+      signals.browser = true
+      resolve { server, port, }
+  #.........................................................................................................
   process.chdir xterm_path
-  cp_cfg  = { detached: false, }
-  server  = CP.fork start_path, cp_cfg
+  cp_cfg            = { detached: false, }
+  server            = CP.fork start_path, cp_cfg
+  #.........................................................................................................
   server.on 'error', ( error ) => warn '^server@445-2^', error
+  #.........................................................................................................
   server.on 'message', ( message ) =>
     # info '^server@445-3^', message
     switch message?.$key ? null
       when '^connect'
-        { port } = message
+        port = message.port
         help "^server@445-4^ serving on port #{rpr port}"
-        resolve { server, port, }
+        conclude 'server'
+      when '^webpack-ready'
+        help "^server@445-5^ webpack ready"
+        conclude 'webpack'
       else
-        warn "^server@445-5^ unknown message format: #{rpr message}"
+        warn "^server@445-6^ unknown message format: #{rpr message}"
     return null
   #.........................................................................................................
   server.on 'close',      => whisper '^server@445-7^', 'close'
@@ -83,7 +100,7 @@ run = ->
   parse_arguments()
   { server, port, } = await start_server()
   start_browser { server, port, }
-  info '^445-21^', { start_path, xterm_path }
+  info '^445-22^', { start_path, xterm_path }
   return null
 
 
