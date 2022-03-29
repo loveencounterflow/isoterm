@@ -78,6 +78,7 @@ compiler.watch({
   poll: undefined
 }, (err, stats) => {
   // Print watch/build result here...
+  if ( err != null ) { throw err; /* new Error( err ) */ };
   process.send( { $key: '^webpack-ready' } );
   console.log(stats.toString({
     colors: true
