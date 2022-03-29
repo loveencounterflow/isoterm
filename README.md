@@ -15,6 +15,7 @@
 - [Usage](#usage)
 - [Live Replay / Echo](#live-replay--echo)
 - [To Do](#to-do)
+- [Is Done](#is-done)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -61,19 +62,21 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 
 ## To Do
 
-* **[+]** Avoid connection error on startup (by using a splash screen?)
-* **[–]** icon
-* **[–]** move `xterm` code out of main folder
-* **[+]** implement useful action (re-clone, update, cancel) to `git-clone-xtermjs` in case folder `xterm`
-  should already exist (NB `git reset --hard` can be redone without changing anything)
-* **[–]** make digest or tag to revert to configurable?
-* **[–]** fix startups with missing terminal element in browser window
-* **[–]** make browser configurable (now hardcoded to `chromium`)
-* **[–]** try to avoid the startup delay caused having to wait for webpack (by including bundled code in
+* **[–]** Icon
+* **[–]** Move `xterm` code out of main folder
+* **[–]** Make digest or tag to revert to configurable?
+* **[–]** Fix startups with missing terminal element in browser window
+* **[–]** Make browser configurable (now hardcoded to `chromium`)
+* **[–]** Try to avoid the startup delay caused having to wait for webpack (by including bundled code in
   `dist` or by removing webpack altogether)
-* **[–]** use exit handler to ensure server process gets terminated
+* **[–]** Use exit handler to ensure server process gets terminated
 
+## Is Done
 
+* **[+]** Avoid connection error on startup (by using a splash screen?)
+* **[+]** Implement useful action (re-clone, update, cancel) to `git-clone-xtermjs` in case folder `xterm`
+  should already exist (NB `git reset --hard` can be redone without changing anything)
+* **[+]** Establish websocket communication between server and browser
 
 
 
