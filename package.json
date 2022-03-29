@@ -23,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/loveencounterflow/xxterm/issues"
   },
-  "homepage": "https://github.com/loveencounterflow/xxterm#readme"
+  "homepage": "https://github.com/loveencounterflow/xxterm#readme",
+  "dependencies": {
+    "cnd": "^9.2.2",
+    "guy": "^4.1.1",
+    "intertype": "^7.7.0"
+  }
 }
