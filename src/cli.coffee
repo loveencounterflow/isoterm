@@ -114,7 +114,8 @@ demo_websocket = ( pid ) =>
     urge "^445-23^ websocket open"
     ws.send 'helo from server'
   ws.on 'message', ( data ) =>
-    urge "^445-23^ received: #{rpr data}"
+    # urge "^445-23^ received: #{rpr data.toString()}"
+    process.stdout.write data # .toString()
   return null
 
 
