@@ -76,7 +76,7 @@ start_server = -> new Promise ( resolve, reject ) =>
   return null
 
 #-----------------------------------------------------------------------------------------------------------
-start_browser = ( cfg ) ->
+start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   defaults    = { port: null, }
   { server
     port }    = { defaults..., cfg..., }
@@ -99,7 +99,7 @@ start_browser = ( cfg ) ->
 run = ->
   parse_arguments()
   { server, port, } = await start_server()
-  start_browser { server, port, }
+  { browser, }      = await start_browser { server, port, }
   return null
 
 
