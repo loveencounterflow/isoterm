@@ -1,8 +1,8 @@
-#!/usr/bin/env node
+#!/usr/local/bin/node --trace-deprecation
+
+// #!/usr/bin/env node -S --trace-deprecation
 
 require( './lib/cli' );
-
-
 
 
 
