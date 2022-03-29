@@ -100,7 +100,6 @@ run = ->
   parse_arguments()
   { server, port, } = await start_server()
   start_browser { server, port, }
-  info '^445-22^', { start_path, xterm_path }
   return null
 
 
