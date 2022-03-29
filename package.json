@@ -4,7 +4,9 @@
   "description": "A Terminal With Precisely Configurable Fonts Using CSS Unicode Ranges",
   "main": "./.",
   "scripts": {
-    "test": "./."
+    "build": "coffee --map -o lib -c src",
+    "test": "echo see 'https://github.com/loveencounterflow/hengist/tree/master/dev/xxterm' (planned)",
+    "preinstall": "./git-clone-xtermjs"
   },
   "repository": {
     "type": "git",
