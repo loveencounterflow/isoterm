@@ -32,10 +32,10 @@ cd /path/to/xxterm
 pnpm install
 ```
 
-The `clone` command will take a little while because XXTerm includes some fairly large CJK fonts (more or less
-the reason I started this is to have good coverage of CJK codepoints).
-The `install` command will also take some time because it calls `git-clone-xtermjs`, a script that clones
-and prepares [xterm.js](https://github.com/xtermjs/xterm.js).
+The `clone` command will take a little while because XXTerm includes some fairly large CJK fonts (more or
+less the reason I started this is to have good coverage of CJK codepoints). The `install` command will also
+take some time because it calls `git-clone-xtermjs`, a script that clones and prepares
+[xterm.js](https://github.com/xtermjs/xterm.js).
 
 ## Usage
 
@@ -45,15 +45,14 @@ When installation has completed, start a browser window displaying a terminal by
 ./xxterm
 ```
 
-This will call `chromium --app=http://localhost:3000`; the browser window will show no menus and no address bar.
-It does sometimes—and especially with the first usage after installation—happen that the browser window does not
-show a terminal. In that event, press `ctrl+r` or use the button to reload the window.
+This will call `chromium --app=http://localhost:3000`; the browser window will show no menus and no address
+bar. In case the browser window does not show a terminal, press `ctrl+r` or use the button to reload the
+window.
 
-> My suspicion is that the reason for this behavior is the slow execution of webpack.
 
 ## To Do
 
-* **[–]** Avoid connection error on startup (by using a splash screen?)
+* **[+]** Avoid connection error on startup (by using a splash screen?)
 * **[–]** icon
 * **[–]** move `xterm` code out of main folder
 * **[+]** implement useful action (re-clone, update, cancel) to `git-clone-xtermjs` in case folder `xterm`
