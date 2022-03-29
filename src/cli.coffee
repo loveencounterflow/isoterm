@@ -46,14 +46,15 @@ start_server = -> new Promise ( resolve, reject ) =>
       else
         warn "^server@445-5^ unknown message format: #{rpr message}"
     return null
-  server.on 'close',      => whisper '^server@445-6^', 'close'
-  server.on 'disconnect', => whisper '^server@445-7^', 'disconnect'
-  server.on 'error',      => whisper '^server@445-8^', 'error'
-  server.on 'exit',       => whisper '^server@445-9^', 'exit'
-  server.on 'message',    => whisper '^server@445-10^', 'message'
-  server.on 'spawn',      => whisper '^server@445-11^', 'spawn'
-  # help '^445-12^', 'Server started'
-  # debug '^445-13^', server.channel
+  #.........................................................................................................
+  server.on 'close',      => whisper '^server@445-7^', 'close'
+  server.on 'disconnect', => whisper '^server@445-8^', 'disconnect'
+  server.on 'error',      => whisper '^server@445-9^', 'error'
+  server.on 'exit',       => whisper '^server@445-10^', 'exit'
+  server.on 'message',    => whisper '^server@445-11^', 'message'
+  server.on 'spawn',      => whisper '^server@445-12^', 'spawn'
+  # help '^445-13^', 'Server started'
+  # debug '^445-14^', server.channel
   ### TAINT get or set port ###
   return null
 
@@ -68,13 +69,13 @@ start_browser = ( cfg ) ->
   parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   browser     = CP.spawn cmd, parameters, cp_cfg
-  browser.on 'error', ( error ) => warn '^browser@445-14^', error
-  browser.on 'close',      => whisper '^browser@445-15^', 'close'
-  browser.on 'disconnect', => whisper '^browser@445-16^', 'disconnect'
-  browser.on 'error',      => whisper '^browser@445-17^', 'error'
-  browser.on 'exit',       => whisper '^browser@445-18^', 'exit'; server.kill()
-  browser.on 'message',    => whisper '^browser@445-19^', 'message'
-  browser.on 'spawn',      => whisper '^browser@445-20^', 'spawn'
+  browser.on 'error', ( error ) => warn '^browser@445-15^', error
+  browser.on 'close',      => whisper '^browser@445-16^', 'close'
+  browser.on 'disconnect', => whisper '^browser@445-17^', 'disconnect'
+  browser.on 'error',      => whisper '^browser@445-18^', 'error'
+  browser.on 'exit',       => whisper '^browser@445-19^', 'exit'; server.kill()
+  browser.on 'message',    => whisper '^browser@445-20^', 'message'
+  browser.on 'spawn',      => whisper '^browser@445-21^', 'spawn'
   return { browser, }
 
 #-----------------------------------------------------------------------------------------------------------
