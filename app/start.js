@@ -70,7 +70,9 @@ const clientConfig = {
   mode: 'development',
   watch: true
 };
-const compiler = webpack(clientConfig);
+const handler = ( ...P ) => {};
+const compiler = webpack( clientConfig );
+// const compiler = webpack( clientConfig, handler );
 
 compiler.watch({
   // Example watchOptions
