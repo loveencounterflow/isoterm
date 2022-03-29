@@ -50,18 +50,21 @@ start_server = -> new Promise ( resolve, reject ) =>
   #.........................................................................................................
   server.on 'error', ( error ) => warn '^server@445-2^', error
   #.........................................................................................................
-  server.on 'message', ( message ) =>
-    # info '^server@445-3^', message
-    switch message?.$key ? null
+  server.on 'message', ( d ) =>
+    # info '^server@445-3^', d
+    switch d?.$key ? null
       when '^connect'
-        port = message.port
+        port = d.port
         help "^server@445-4^ serving on port #{rpr port}"
         conclude 'server'
       when '^webpack-ready'
         help "^server@445-5^ webpack ready"
         conclude 'webpack'
+      when '^term-pid'
+        help "^server@445-5^ received terminal PID #{d.pid}"
+        demo_websocket d.pid
       else
-        warn "^server@445-6^ unknown message format: #{rpr message}"
+        warn "^server@445-6^ unknown message format: #{rpr d}"
     return null
   #.........................................................................................................
   server.on 'close',      => whisper '^server@445-7^', 'close'
@@ -102,13 +105,40 @@ run = ->
   { browser, }      = await start_browser { server, port, }
   return null
 
+#-----------------------------------------------------------------------------------------------------------
+demo_websocket = ( pid ) =>
+  url     = "ws://localhost:3000/terminals/#{pid}"
+  WS      = require 'ws'
+  ws      = new WS.WebSocket url
+  ws.on 'open', () =>
+    urge "^445-23^ websocket open"
+    ws.send 'helo from server'
+  ws.on 'message', ( data ) =>
+    urge "^445-23^ received: #{rpr data}"
+  return null
+
 
 ############################################################################################################
 do =>
   await run()
 
-
-
+  # ws_cfg  =
+  #   # backlog:            # {Number} The maximum length of the queue of pending connections.
+  #   # clientTracking:     # {Boolean} Specifies whether or not to track clients.
+  #   # handleProtocols:    # {Function} A function which can be used to handle the WebSocket subprotocols. See description below.
+  #   # host:               # {String} The hostname where to bind the server.
+  #   # maxPayload:         # {Number} The maximum allowed message size in bytes. Defaults to 100 MiB (104857600 bytes).
+  #   # noServer:           # {Boolean} Enable no server mode.
+  #   # path:               # {String} Accept only connections matching this path.
+  #   perMessageDeflate:  false # {Boolean|Object} Enable/disable permessage-deflate.
+  #   port:               8080 # {Number} The port where to bind the server.
+  #   # server:             # {http.Server|https.Server} A pre-created Node.js HTTP/S server.
+  #   skipUTF8Validation: true # {Boolean} Specifies whether or not to skip UTF-8 validation for text and close messages. Defaults to false. Set to true only if clients are trusted.
+  # ws_server = new WS.WebSocketServer ws_cfg
+  # ws_server.on 'connection', ( ws ) =>
+  #   ws.on 'message', ( data ) =>
+  #     urge "^445-23^ received: #{rpr data}"
+  #     ws.send 'something'
 
 
 

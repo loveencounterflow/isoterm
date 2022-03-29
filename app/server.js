@@ -62,6 +62,7 @@ function startServer() {
       });
 
     console.log('Created terminal with PID: ' + term.pid);
+    process.send?.( { $key: '^term-pid', pid: term.pid, } );
     terminals[term.pid] = term;
     logs[term.pid] = '';
     term.on('data', function(data) {
