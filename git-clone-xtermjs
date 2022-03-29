@@ -53,9 +53,11 @@ path_to_executable=$(command -v pnpm)
 if [ -x "$path_to_executable" ] ; then
   echo -e "$reverse$green using pnpm to install xterm deps $reset"
   pnpm install
+  pnpm run build
 else
   echo -e "$reverse$green using npm to install xterm deps $reset"
   npm install
+  npm run build
   fi
 
 echo -e "$reverse$green installed xterm@$digest $reset"
