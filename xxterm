@@ -3,35 +3,6 @@
 require( './lib/cli' );
 
 
-/*
-#!/usr/bin/env bash
-set -euo pipefail
 
-home="$(realpath "$(realpath "${BASH_SOURCE[0]}" | xargs dirname)"/.)"
-cd "$home/xterm"
 
-#-----------------------------------------------------------------------------------------------------------
-# thx to https://aweirdimagination.net/2020/06/28/kill-child-jobs-on-script-exit/
-cleanup() {
-  # kill all processes whose parent is this process
-  pkill -P $$
-  }
 
-for sig in INT QUIT HUP TERM; do
-  trap "
-  cleanup
-  trap - $sig EXIT
-  kill -s $sig "'"$$"' "$sig"
-  done
-trap cleanup EXIT
-
-#-----------------------------------------------------------------------------------------------------------
-node ../app/start.js &
-# thx to https://stackoverflow.com/a/27601038
-while ! nc -z localhost 3000; do
-  sleep 0.1 # wait for 1/10 of the second before check again
-  done
-  echo "connect"
-# node ../app/start.js | tail -f -n0 | tee grep -qe 'foobar'
-chromium --app=http://localhost:3000
-*/
