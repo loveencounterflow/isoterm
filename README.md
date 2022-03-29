@@ -13,6 +13,7 @@
 - [A Terminal With Precisely Configurable Fonts Using CSS Unicode Ranges](#a-terminal-with-precisely-configurable-fonts-using-css-unicode-ranges)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Live Replay / Echo](#live-replay--echo)
 - [To Do](#to-do)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -48,6 +49,14 @@ When installation has completed, start a browser window displaying a terminal by
 This will call `chromium --app=http://localhost:3000`; the browser window will show no menus and no address
 bar. In case the browser window does not show a terminal, press `ctrl+r` or use the button to reload the
 window.
+
+## Live Replay / Echo
+
+As of [commit&nbsp;#3768e37aaa0](https://github.com/loveencounterflow/xxterm/commit/3768e37aaa0486895bbe9e86d7bbccfdc42cdef8)
+the parent process can echo everything that's going on in the web terminal, including colors, `zsh` line
+completions, and even `less` paging (including the ability to clear the screen) and more advanced TUI stuff
+like `htop` just work. Not sure ATM why that would be useful but it does make for a nice demo!
+
 
 
 ## To Do
