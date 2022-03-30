@@ -1,6 +1,9 @@
 
 
 
+<img src='app/static/logo.png'>
+
+
 # XXTerm
 
 
