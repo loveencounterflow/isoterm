@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "",
+  "sourceRoot": "",
+  "sources": [
+    "../src/ops.coffee"
+  ],
+  "names": [],
+  "mappings": "AAIA;EAAA;AAAA,MAAA,QAAA,EAAA,OAAA,EAAA;;EAGA,GAAA,GAAM,OAAO,CAAC;;EACd,GAAA,CAAI,SAAJ,EAAe,QAAf;;EAEA,QAAA,GAAW;;EACX,OAAA,GACE;IAAA,GAAA,EAAK,CAAE,MAAF,EAAU,GAAV,CAAA,GAAA;MACH,QAAQ,CAAC,GAAT,CAAa,OAAb,EAAsB,GAAtB;aACA,MAAM,CAAE,GAAF;IAFH;EAAL;;EAIF,UAAU,CAAC,OAAX,GAAqB,IAAI,KAAJ,CAAU,OAAV,EAAmB,OAAnB;AAZrB",
+  "sourcesContent": [
+    "\n\n\n\n'use strict'\n\n\nlog = console.log\nlog '^554-1^', 'ops.js'\n\n_console = console\nhandler =\n  get: ( target, key ) =>\n    _console.log '^334^', key\n    target[ key ]\n\nglobalThis.console = new Proxy console, handler\n\n\n"
+  ]
+}
