@@ -72,9 +72,9 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** Try to avoid the startup delay caused having to wait for webpack (by including bundled code in
   `dist` or by removing webpack altogether)
 * **[–]** Use exit handler to ensure server process gets terminated
-* **[–]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js
 * **[–]** make echoing of web terminal configurable
 * **[–]** `exit` in web terminal should ternminate XXTerm (as it does in other terminal emulators)
+* **[–]** implement On-Page Script (`ops.js`) to avoid having to code insed of `index.html`
 
 ## Is Done
 
@@ -84,6 +84,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[+]** Establish websocket communication between server and browser
 * **[+]** Icon (sorta)
 * **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js
+* **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js
 
 
 
