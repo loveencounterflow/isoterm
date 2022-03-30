@@ -112,10 +112,10 @@ demo_websocket = ( pid ) =>
   ws      = new WS.WebSocket url
   ws.on 'open', () =>
     urge "^445-23^ websocket open"
-    ws.send 'echo "helo from server"'
-  ws.on 'message', ( data ) =>
-    # urge "^445-23^ received: #{rpr data.toString()}"
-    process.stdout.write data # .toString()
+    # ws.send 'echo "helo from server"'
+  # ws.on 'message', ( data ) =>
+  #   if cfg.echo
+  #     process.stdout.write data # .toString()
   return null
 
 
