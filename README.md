@@ -76,6 +76,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** `exit` in web terminal should ternminate XXTerm (as it does in other terminal emulators)
 * **[–]** implement On-Page Script (`ops.js`) to avoid having to code insed of `index.html`
 * **[–]** can we mirror errors &c that happen in the browser console to the main process (`cli.js`)?
+* **[–]** make browser console output easier to look at from the web terminal
 
 ## Is Done
 
