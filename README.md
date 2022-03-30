@@ -65,7 +65,6 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 
 ## To Do
 
-* **[–]** Icon
 * **[–]** Move `xterm` code out of main folder
 * **[–]** Make digest or tag to revert to configurable?
 * **[–]** Fix startups with missing terminal element in browser window
@@ -73,8 +72,9 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** Try to avoid the startup delay caused having to wait for webpack (by including bundled code in
   `dist` or by removing webpack altogether)
 * **[–]** Use exit handler to ensure server process gets terminated
-* **[–]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js
 * **[–]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js
+* **[–]** make echoing of web terminal configurable
+* **[–]** `exit` in web terminal should ternminate XXTerm (as it does in other terminal emulators)
 
 ## Is Done
 
@@ -82,6 +82,8 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[+]** Implement useful action (re-clone, update, cancel) to `git-clone-xtermjs` in case folder `xterm`
   should already exist (NB `git reset --hard` can be redone without changing anything)
 * **[+]** Establish websocket communication between server and browser
+* **[+]** Icon (sorta)
+* **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js
 
 
 
