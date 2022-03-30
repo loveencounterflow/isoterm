@@ -51,7 +51,7 @@ let term;
 let protocol;
 let socketURL;
 let socket;
-let pid;
+// let pid;
 
 type AddonType = 'attach' | 'fit' | 'search' | 'serialize' | 'unicode11' | 'web-links' | 'webgl' | 'ligatures';
 
@@ -197,12 +197,12 @@ function createTerminal(): void {
 
   window.term = term;  // Expose `term` to window for debugging purposes
   term.onResize((size: { cols: number, rows: number }) => {
-    if (!pid) {
+    if (!globalThis.XXTERM.pid) {
       return;
     }
     const cols = size.cols;
     const rows = size.rows;
-    const url = '/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
+    const url = '/terminals/' + globalThis.XXTERM.pid + '/size?cols=' + cols + '&rows=' + rows;
 
     fetch(url, {method: 'POST'});
   });
@@ -236,7 +236,7 @@ function createTerminal(): void {
 
     fetch('/terminals?cols=' + term.cols + '&rows=' + term.rows, {method: 'POST'}).then((res) => {
       res.text().then((processId) => {
-        pid = processId;
+        globalThis.XXTERM.pid = processId;
         socketURL += processId;
         socket = new WebSocket(socketURL);
         socket.onopen = runRealTerminal;
