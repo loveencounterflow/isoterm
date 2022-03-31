@@ -26,6 +26,8 @@ start_path                = PATH.resolve PATH.join __dirname, '../app/start.js'
 H                         = require './helpers'
 # port_pattern              = /^33[0-9]{3}$/
 port_pattern              = /^33333$/
+GUY                       = require 'guy'
+
 
 #-----------------------------------------------------------------------------------------------------------
 parse_arguments = ->
@@ -49,7 +51,9 @@ start_server = -> new Promise ( resolve, reject ) =>
   #.........................................................................................................
   process.chdir xterm_path
   PORT              = await H.find_free_port { port: port_pattern, }
-  cp_cfg            = { detached: false, env: { PORT, } }
+  env               = { process.env..., PORT, }
+  cp_cfg            = { detached: false, env, }
+  # cp_cfg            = { detached: false, }
   server            = CP.fork start_path, cp_cfg
   #.........................................................................................................
   server.on 'error', ( error ) => warn '^server@445-2^', error
@@ -77,6 +81,12 @@ start_server = -> new Promise ( resolve, reject ) =>
   server.on 'exit',       => whisper '^server@445-10^', 'exit'
   server.on 'message',    => whisper '^server@445-11^', 'message'
   server.on 'spawn',      => whisper '^server@445-12^', 'spawn'
+  #.........................................................................................................
+  GUY.process.on_exit ->
+    info CND.reverse " ^409-1^ process exiting "
+    help '^409-2^', "terminating process PID #{server.pid}"
+    await server.kill()
+    help '^409-3^', "server exited: #{server.killed}"
   # help '^445-13^', 'Server started'
   # debug '^445-14^', server.channel
   ### TAINT get or set port ###
@@ -97,9 +107,15 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   browser.on 'close',      => whisper '^browser@445-16^', 'close'
   browser.on 'disconnect', => whisper '^browser@445-17^', 'disconnect'
   browser.on 'error',      => whisper '^browser@445-18^', 'error'
-  browser.on 'exit',       => whisper '^browser@445-19^', 'exit'; server.kill()
+  browser.on 'exit',       => whisper '^browser@445-19^', 'exit'
   browser.on 'message',    => whisper '^browser@445-20^', 'message'
   browser.on 'spawn',      => whisper '^browser@445-21^', 'spawn'
+  #.........................................................................................................
+  GUY.process.on_exit ->
+    info CND.reverse " ^409-4^ process exiting "
+    help '^409-5^', "terminating process PID #{browser.pid}"
+    await browser.kill 'SIGKILL'
+    help '^409-6^', "browser exited: #{browser.killed}"
   return { browser, }
 
 #-----------------------------------------------------------------------------------------------------------
@@ -125,6 +141,8 @@ demo_websocket = ( pid ) =>
 
 ############################################################################################################
 do =>
+  # GUY.process.on_exit ->
+  #   info CND.reverse " ^409-7^ process exiting "
   await run()
 
 
