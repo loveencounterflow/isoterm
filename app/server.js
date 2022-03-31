@@ -142,7 +142,7 @@ function startServer() {
       delete logs[term.pid];
     });
   });
-
+  // ### TAINT must validate port is legal number
   var port = process.env.PORT || 3000,
       host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
 

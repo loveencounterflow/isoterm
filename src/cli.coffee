@@ -23,6 +23,9 @@ CP                        = require 'child_process'
 #...........................................................................................................
 xterm_path                = PATH.resolve PATH.join __dirname, '../xterm'
 start_path                = PATH.resolve PATH.join __dirname, '../app/start.js'
+H                         = require './helpers'
+# port_pattern              = /^33[0-9]{3}$/
+port_pattern              = /^33333$/
 
 #-----------------------------------------------------------------------------------------------------------
 parse_arguments = ->
@@ -45,7 +48,8 @@ start_server = -> new Promise ( resolve, reject ) =>
       resolve { server, port, }
   #.........................................................................................................
   process.chdir xterm_path
-  cp_cfg            = { detached: false, }
+  PORT              = await H.find_free_port { port: port_pattern, }
+  cp_cfg            = { detached: false, env: { PORT, } }
   server            = CP.fork start_path, cp_cfg
   #.........................................................................................................
   server.on 'error', ( error ) => warn '^server@445-2^', error
