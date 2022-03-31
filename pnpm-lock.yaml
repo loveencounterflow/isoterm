@@ -4,12 +4,16 @@ specifiers:
   cnd: ^9.2.2
   guy: ^4.1.1
   intertype: ^7.7.0
+  port-used: ^2.0.8
+  randexp: ^0.5.3
   ws: ^8.5.0
 
 dependencies:
   cnd: 9.2.2
   guy: 4.1.1
   intertype: 7.7.0
+  port-used: 2.0.8
+  randexp: 0.5.3
   ws: 8.5.0
 
 packages:
@@ -19,6 +23,15 @@ packages:
     hasBin: true
     dependencies:
       jsx-number-format: 0.1.5
+    dev: false
+
+  /deep-is/0.1.4:
+    resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
+    dev: false
+
+  /drange/1.1.1:
+    resolution: {integrity: sha512-pYxfDYpued//QpnLIm4Avk7rsNtAtQkUES2cwAYSvD/wd2pKD71gN2Ebj3e7klzXwjocvE8c5vx/1fxwpqmSxA==}
+    engines: {node: '>=4'}
     dev: false
 
   /guy/4.1.1:
@@ -43,6 +56,24 @@ packages:
       multimix: 5.0.0
     dev: false
 
+  /ip-regex/4.3.0:
+    resolution: {integrity: sha512-B9ZWJxHHOHUhUjCPrMpLD4xEq35bUTClHM1S6CBU5ixQnkZmwipwgc96vAd7AAGM9TGHvJR+Uss+/Ak6UphK+Q==}
+    engines: {node: '>=8'}
+    dev: false
+
+  /is-url/1.2.4:
+    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
+    dev: false
+
+  /is2/2.0.4:
+    resolution: {integrity: sha512-7BQdwRMJRIMvcIltrz3VElmppIV7dL/s2nnZbhzcgyOBdZJcLYuEUG7H0icNvuCyjupXznJwjkDM30pgsNLwtg==}
+    engines: {node: '>=v0.10.0'}
+    dependencies:
+      deep-is: 0.1.4
+      ip-regex: 4.3.0
+      is-url: 1.2.4
+    dev: false
+
   /jsx-number-format/0.1.5:
     resolution: {integrity: sha512-eS1SvW5Lm+UQOrpxqtTF6NgPDupYlCV1GXJr+f/1yp+nwQH/4qW6XarwCcdphQjNHrJFC4ko2MgRyRDS/ypqZw==}
     dev: false
@@ -53,6 +84,25 @@ packages:
 
   /multimix/5.0.0:
     resolution: {integrity: sha512-N9cdGSDDD7kxOV7R6e4iZqsHTZ4F4iiSDWqMcVqx4gEH6HBtRXav39Gj3fgT1YqvBcwPCQuf0Oa5R2cDaLWK8A==}
+    dev: false
+
+  /port-used/2.0.8:
+    resolution: {integrity: sha512-5CBw4e3+UvRZhLIYqBw2A60YnquDgP/BFEQ6EcrotZGNiu8uLQndfMRrW5Wz9+uh9x0XwrERPB94n+osZpNVsQ==}
+    dependencies:
+      is2: 2.0.4
+    dev: false
+
+  /randexp/0.5.3:
+    resolution: {integrity: sha512-U+5l2KrcMNOUPYvazA3h5ekF80FHTUG+87SEAmHZmolh1M+i/WyTCxVzmi+tidIa1tM4BSe8g2Y/D3loWDjj+w==}
+    engines: {node: '>=4'}
+    dependencies:
+      drange: 1.1.1
+      ret: 0.2.2
+    dev: false
+
+  /ret/0.2.2:
+    resolution: {integrity: sha512-M0b3YWQs7R3Z917WRQy1HHA7Ba7D8hvZg6UE5mLykJxQVE2ju0IXbGlaHPPlkY+WN7wFP+wUMXmBFA0aV6vYGQ==}
+    engines: {node: '>=4'}
     dev: false
 
   /ws/8.5.0:
