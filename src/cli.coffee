@@ -50,8 +50,8 @@ start_server = -> new Promise ( resolve, reject ) =>
       resolve { server, port, }
   #.........................................................................................................
   process.chdir xterm_path
-  PORT              = await H.find_free_port { port: port_pattern, }
-  env               = { process.env..., PORT, }
+  port              = await H.find_free_port { port: port_pattern, }
+  env               = { process.env..., xxterm_port: port, }
   cp_cfg            = { detached: false, env, }
   # cp_cfg            = { detached: false, }
   server            = CP.fork start_path, cp_cfg
