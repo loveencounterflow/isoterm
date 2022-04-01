@@ -186,7 +186,7 @@ function startServer() {
       process.send( { $key: '^connect', port, } ) } );
     server.on('error',function( error ) {
       console.log( CND.red( '^server.js@734-14^', error.code ) );
-      if ( error != null ) { throw error; } } );
+      throw error; } );
     // -----------------------------------------------------------------------------------------------------
   }
 
