@@ -62,7 +62,6 @@ start_server = -> new Promise ( resolve, reject ) =>
     # info '^server@445-3^', d
     switch d?.$key ? null
       when '^connect'
-        port = d.port
         help "^server@445-4^ serving on port #{rpr port}"
         conclude 'server'
       when '^webpack-ready'
