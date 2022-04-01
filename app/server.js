@@ -146,7 +146,7 @@ function startServer() {
   var port = process.env.xxterm_port || 3000,
       host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
 
-  console.log('App listening to http://127.0.0.1:' + port);
+  console.log('^server.js@7575675^ express app listening to http://127.0.0.1:' + port);
   app.listen( port, host, () =>
     { process.send( { $key: '^connect', port, } ) } );
 }
