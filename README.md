@@ -77,8 +77,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** implement On-Page Script (`ops.js`) to avoid having to code insed of `index.html`
 * **[–]** can we mirror errors &c that happen in the browser console to the main process (`cli.js`)?
 * **[–]** make browser console output easier to look at from the web terminal
-* **[–]** each `xxterm` instance should look for its own free port, fail with message in case it doesn't
-  succeed in the configured range, with configured end digits
+* **[–]** handle race condition where a chosen port is no longer available so `server.js` fails to connect
 
 ## Is Done
 
@@ -89,6 +88,8 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[+]** Icon (sorta)
 * **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js
 * **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js
+* **[+]** each `xxterm` instance should look for its own free port, fail with message in case it doesn't
+  succeed in the configured range, with configured end digits
 
 
 
