@@ -85,7 +85,7 @@ start_server = -> new Promise ( resolve, reject ) =>
   GUY.process.on_exit ->
     info CND.reverse " ^409-1^ process exiting "
     help '^409-2^', "terminating process PID #{server.pid}"
-    await server.kill()
+    server.kill()
     help '^409-3^', "server exited: #{server.killed}"
   # help '^445-13^', 'Server started'
   # debug '^445-14^', server.channel
@@ -114,7 +114,7 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   GUY.process.on_exit ->
     info CND.reverse " ^409-4^ process exiting "
     help '^409-5^', "terminating process PID #{browser.pid}"
-    await browser.kill 'SIGKILL'
+    browser.kill 'SIGKILL'
     help '^409-6^', "browser exited: #{browser.killed}"
   return { browser, }
 
