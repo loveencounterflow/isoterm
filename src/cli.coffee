@@ -69,7 +69,7 @@ start_server = -> new Promise ( resolve, reject ) =>
         conclude 'webpack'
       when '^term-pid'
         help "^server@445-5^ received terminal PID #{d.pid}"
-        demo_websocket d.pid
+        demo_websocket port, d.pid
       else
         warn "^server@445-6^ unknown message format: #{rpr d}"
     return null
@@ -125,8 +125,8 @@ run = ->
   return null
 
 #-----------------------------------------------------------------------------------------------------------
-demo_websocket = ( pid ) =>
-  url     = "ws://localhost:3000/terminals/#{pid}"
+demo_websocket = ( port, pid ) =>
+  url     = "ws://localhost:#{port}/terminals/#{pid}"
   WS      = require 'ws'
   ws      = new WS.WebSocket url
   ws.on 'open', () =>
