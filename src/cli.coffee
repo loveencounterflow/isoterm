@@ -56,16 +56,16 @@ start_server = -> new Promise ( resolve, reject ) =>
   # cp_cfg            = { detached: false, }
   server            = CP.fork start_path, cp_cfg
   #.........................................................................................................
-  server.on 'error', ( error ) => warn '^server@445-2^', error
+  server.on 'error', ( error ) => warn '^server@445-1^', error
   #.........................................................................................................
   server.on 'message', ( d ) =>
-    # info '^server@445-3^', d
+    # info '^server@445-2^', d
     switch d?.$key ? null
       when '^connect'
-        help "^server@445-4^ serving on port #{rpr port}"
+        help "^server@445-3^ serving on port #{rpr d.port}"
         conclude 'server'
       when '^webpack-ready'
-        help "^server@445-5^ webpack ready"
+        help "^server@445-4^ webpack ready"
         conclude 'webpack'
       when '^term-pid'
         help "^server@445-5^ received terminal PID #{d.pid}"
@@ -77,18 +77,14 @@ start_server = -> new Promise ( resolve, reject ) =>
   server.on 'close',      => whisper '^server@445-7^', 'close'
   server.on 'disconnect', => whisper '^server@445-8^', 'disconnect'
   server.on 'error',      => whisper '^server@445-9^', 'error'
-  server.on 'exit',       => whisper '^server@445-10^', 'exit'
-  server.on 'message',    => whisper '^server@445-11^', 'message'
-  server.on 'spawn',      => whisper '^server@445-12^', 'spawn'
+  server.on 'message',    => whisper '^server@445-10^', 'message'
+  server.on 'spawn',      => whisper '^server@445-11^', 'spawn'
+  server.on 'exit',       => whisper '^server@445-12^', 'exit'; process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
-    info CND.reverse " ^409-1^ process exiting "
-    help '^409-2^', "terminating process PID #{server.pid}"
+    info CND.reverse " ^409-1^ process exiting; terminating server process PID #{server.pid} "
     server.kill()
-    help '^409-3^', "server exited: #{server.killed}"
-  # help '^445-13^', 'Server started'
-  # debug '^445-14^', server.channel
-  ### TAINT get or set port ###
+  #.........................................................................................................
   return null
 
 #-----------------------------------------------------------------------------------------------------------
@@ -102,20 +98,19 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   browser     = CP.spawn cmd, parameters, cp_cfg
-  browser.on 'error', ( error ) => warn '^browser@445-15^', error
-  browser.on 'close',      => whisper '^browser@445-16^', 'close'
-  browser.on 'disconnect', => whisper '^browser@445-17^', 'disconnect'
-  browser.on 'error',      => whisper '^browser@445-18^', 'error'
-  browser.on 'exit',       => whisper '^browser@445-19^', 'exit'
-  browser.on 'message',    => whisper '^browser@445-20^', 'message'
-  browser.on 'spawn',      => whisper '^browser@445-21^', 'spawn'
+  browser.on 'error', ( error ) => warn '^browser@445-13^', error
+  browser.on 'close',       => whisper '^browser@445-14^', 'close'
+  browser.on 'disconnect',  => whisper '^browser@445-15^', 'disconnect'
+  browser.on 'error',       => whisper '^browser@445-16^', 'error'
+  browser.on 'message',     => whisper '^browser@445-17^', 'message'
+  browser.on 'spawn',       => whisper '^browser@445-18^', 'spawn'
+  browser.on 'exit',        => whisper '^browser@445-19^', 'exit'; process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
-    info CND.reverse " ^409-4^ process exiting "
-    help '^409-5^', "terminating process PID #{browser.pid}"
-    browser.kill 'SIGKILL'
-    help '^409-6^', "browser exited: #{browser.killed}"
-  return { browser, }
+    info CND.reverse " ^409-1^ process exiting; terminating browser process PID #{browser.pid} "
+    browser.kill()
+  #.........................................................................................................
+  return null
 
 #-----------------------------------------------------------------------------------------------------------
 run = ->
