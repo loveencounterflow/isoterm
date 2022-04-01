@@ -4,13 +4,16 @@
  * demo to the public as is would introduce security risks for the host.
  **/
 
+const CND             = require( 'cnd' );
+const GUY             = require( 'guy' );
 /* ### TAINT use helper module with `require_from_xterm()` method */
 const PATH            = require('path');
 const xterm_path      = PATH.resolve( PATH.join( __dirname, '../xterm' ) );
-const express_path    = require.resolve( 'express', { paths: [ xterm_path, ], } );
+// const express_path    = require.resolve( 'express', { paths: [ xterm_path, ], } );
 const expressWs_path  = require.resolve( 'express-ws', { paths: [ xterm_path, ], } );
 const pty_path        = require.resolve( 'node-pty', { paths: [ xterm_path, ], } );
-var express           = require( express_path );
+// var express           = require( express_path );
+const express         = require( 'express' );
 var expressWs         = require( expressWs_path );
 var os                = require('os');
 var pty               = require( pty_path );
@@ -146,9 +149,54 @@ function startServer() {
   var port = process.env.xxterm_port || 3000,
       host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
 
-  console.log('^server.js@7575675^ express app listening to http://127.0.0.1:' + port);
-  app.listen( port, host, () =>
-    { process.send( { $key: '^connect', port, } ) } );
+  GUY.process.on_exit( () => {
+    console.log( CND.blue( '^server.js@734-1^' ) );
+  } );
+  process.on( 'uncaughtException', ( error ) => {
+     CND.red( '^server.js@734-2^', error );
+     process.exit( 123 ); })
+  process.on( 'unhandledRejection', ( error ) => {
+     CND.red( '^server.js@734-3^', error );
+     process.exit( 123 ); })
+  process.on('uncaughtExceptionMonitor', (error, origin) => {
+     CND.red( '^server.js@734-4^', error );
+     CND.red( '^server.js@734-5^', origin );
+     process.exit( 123 ); })
+  process.on('unhandledRejection', (reason, promise) => {
+    console.log( CND.red( '^server.js@734-6^', 'Unhandled Rejection at:', promise, 'reason:', reason ) ); } );
+
+  app.on( 'error',            ( error ) => { console.log( CND.blue( '^server.js@734-7^', error ) ); } );
+  process.stderr.on( 'data',  ( data  ) => { console.log( CND.blue( '^server.js@734-8^', data  ) ); } );
+  var server = null;
+  try {
+    // server = app.listen( port, host, ( error ) => {
+    //   console.log( CND.red( '^server.js@734-9^', error ) );
+    //   console.log( CND.red( '^server.js@734-10^ express app listening to http://127.0.0.1:' + port ) );
+    //   process.send( { $key: '^connect', port, } ) } ); }
+    const HTTP = require( 'http' );
+    server  = HTTP.createServer(app);
+    server.listen( port, host, ( error ) => {
+      console.log( CND.red( '^server.js@734-9^', error ) );
+      console.log( CND.red( '^server.js@734-10^ express app listening to http://127.0.0.1:' + port ) );
+      process.send( { $key: '^connect', port, } ) } );
+    server.on('error',function(err) {
+        if (err.code === 'EADDRINUSE') {
+            console.log('Address in use, retrying...');
+            setTimeout(() => {
+                server.close();
+                server.listen(3000, 'localhost');
+            }, 1000);
+        }
+    });
+  }
+
+  catch ( error ) {
+    console.log( CND.red( '^server.js@734-11^', error ) );
+    };
+  // console.log( CND.yellow( '^server.js@734-12^', server ) );
+  console.log( CND.lime( '^server.js@734-13^', server === app ) );
+  server.on( 'error',            ( error ) => { console.log( CND.blue( '^server.js@734-14^', error ) ); } );
+
 }
 
 module.exports = startServer;

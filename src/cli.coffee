@@ -25,7 +25,7 @@ xterm_path                = PATH.resolve PATH.join __dirname, '../xterm'
 start_path                = PATH.resolve PATH.join __dirname, '../app/start.js'
 H                         = require './helpers'
 # port_pattern              = /^33[0-9]{3}$/
-port_pattern              = /^33333$/
+port_pattern              = /^8081$/
 GUY                       = require 'guy'
 
 
@@ -50,11 +50,18 @@ start_server = -> new Promise ( resolve, reject ) =>
       resolve { server, port, }
   #.........................................................................................................
   process.chdir xterm_path
-  port              = await H.find_free_port { port: port_pattern, }
+  port              = await H.find_free_port { port: port_pattern, fallback: null, }; port = 8081
   env               = { process.env..., xxterm_port: port, }
   cp_cfg            = { detached: false, env, }
   # cp_cfg            = { detached: false, }
-  server            = CP.fork start_path, cp_cfg
+  process.on 'uncaughtException', ( error ) => warn '^server@445-1xxxxxxxxxxx^', error
+  try
+    server            = CP.fork start_path, cp_cfg
+  catch error
+    warn '^445-9871^', error
+  # server.stderr.on 'data', ( data ) => warn '^445-87^', CND.reverse data
+  # server.stdout.on 'data', ( data ) => info '^445-87^', CND.reverse data
+  # debug '^5345^', server.stderr.toString().trim()
   #.........................................................................................................
   server.on 'error', ( error ) => warn '^server@445-1^', error
   #.........................................................................................................
