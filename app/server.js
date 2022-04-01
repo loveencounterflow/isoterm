@@ -169,33 +169,33 @@ function startServer() {
   process.stderr.on( 'data',  ( data  ) => { console.log( CND.blue( '^server.js@734-8^', data  ) ); } );
   var server = null;
   try {
+    // -----------------------------------------------------------------------------------------------------
     // server = app.listen( port, host, ( error ) => {
     //   console.log( CND.red( '^server.js@734-9^', error ) );
     //   console.log( CND.red( '^server.js@734-10^ express app listening to http://127.0.0.1:' + port ) );
-    //   process.send( { $key: '^connect', port, } ) } ); }
+    //   process.send( { $key: '^connect', port, } ) } );
+    // server.on('error',function( error ) {
+    //   console.log( CND.red( '^server.js@734-11^', error.code ) );
+    //   if ( error != null ) { throw error; } } );
+    // -----------------------------------------------------------------------------------------------------
     const HTTP = require( 'http' );
     server  = HTTP.createServer(app);
     server.listen( port, host, ( error ) => {
-      console.log( CND.red( '^server.js@734-9^', error ) );
-      console.log( CND.red( '^server.js@734-10^ express app listening to http://127.0.0.1:' + port ) );
+      console.log( CND.red( '^server.js@734-12^', error ) );
+      console.log( CND.red( '^server.js@734-13^ express app listening to http://127.0.0.1:' + port ) );
       process.send( { $key: '^connect', port, } ) } );
-    server.on('error',function(err) {
-        if (err.code === 'EADDRINUSE') {
-            console.log('Address in use, retrying...');
-            setTimeout(() => {
-                server.close();
-                server.listen(3000, 'localhost');
-            }, 1000);
-        }
-    });
+    server.on('error',function( error ) {
+      console.log( CND.red( '^server.js@734-14^', error.code ) );
+      if ( error != null ) { throw error; } } );
+    // -----------------------------------------------------------------------------------------------------
   }
 
   catch ( error ) {
-    console.log( CND.red( '^server.js@734-11^', error ) );
+    console.log( CND.red( '^server.js@734-15^', error ) );
     };
-  // console.log( CND.yellow( '^server.js@734-12^', server ) );
-  console.log( CND.lime( '^server.js@734-13^', server === app ) );
-  server.on( 'error',            ( error ) => { console.log( CND.blue( '^server.js@734-14^', error ) ); } );
+  // console.log( CND.yellow( '^server.js@734-16^', server ) );
+  console.log( CND.lime( '^server.js@734-17^', server === app ) );
+  server.on( 'error',            ( error ) => { console.log( CND.blue( '^server.js@734-18^', error ) ); } );
 
 }
 
