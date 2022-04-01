@@ -185,7 +185,9 @@ function startServer() {
       console.log( CND.red( '^server.js@734-13^ express app listening to http://127.0.0.1:' + port ) );
       process.send( { $key: '^connect', port, } ) } );
     server.on('error',function( error ) {
-      console.log( CND.red( '^server.js@734-14^', error.code ) );
+      // console.log( CND.red( CND.reverse( '^server.js@734-14^', error.code ) ) );
+      console.log( CND.red( CND.reverse( '^server.js@734-14^', error.message ) ) );
+      process.exit( 111 );
       throw error; } );
     // -----------------------------------------------------------------------------------------------------
   }
