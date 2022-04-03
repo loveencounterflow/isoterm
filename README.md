@@ -42,6 +42,13 @@ less the reason I started this is to have good coverage of CJK codepoints). The 
 take some time because it calls `git-clone-xtermjs`, a script that clones and prepares
 [xterm.js](https://github.com/xtermjs/xterm.js).
 
+Chromium is currently hardcoded to be used for the web terminal; on Debian-ish system, install it with
+
+```bash
+sudo apt install -y chromium-browser
+```
+
+
 ## Usage
 
 When installation has completed, start a browser window displaying a terminal by executing
