@@ -30,6 +30,11 @@ GUY                       = require 'guy'
 
 
 #-----------------------------------------------------------------------------------------------------------
+get_screen_dimensions = ->
+  [ width, height, ] = ( require '@vamidicreations/screenres' ).get()
+  return { width, height, }
+
+#-----------------------------------------------------------------------------------------------------------
 parse_arguments = ->
   if process.argv.length isnt 2
     warn "^445-1^ this command doesn't accept parameters; terminating"
@@ -106,7 +111,9 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   cmd         = 'chromium'
   ### TAINT get address from `start_server()` ###
   address     = "http://#{host}:#{port}"
-  parameters  = [ "--app=#{address}", ]
+  screen      = get_screen_dimensions()
+  parameters  = [ "--app=#{address}", "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", ]
+  # parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   help '^cli/browser@445-18^', "spawning #{cmd} #{parameters.join ' '}"
   browser     = CP.spawn cmd, parameters, cp_cfg
@@ -150,5 +157,4 @@ do =>
   # GUY.process.on_exit ->
   #   info CND.reverse " ^409-7^ process exiting "
   await run()
-
 
