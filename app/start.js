@@ -74,15 +74,15 @@ const handler = ( ...P ) => {};
 const compiler = webpack( clientConfig );
 // const compiler = webpack( clientConfig, handler );
 
-compiler.watch({
-  // Example watchOptions
-  aggregateTimeout: 300,
-  poll: undefined
-}, (err, stats) => {
-  // Print watch/build result here...
-  if ( err != null ) { throw err; /* new Error( err ) */ };
-  process.send( { $key: '^webpack-ready' } );
-  console.log(stats.toString({
-    colors: true
-  }));
-});
+// compiler.watch({
+//   // Example watchOptions
+//   aggregateTimeout: 300,
+//   poll: undefined
+// }, (err, stats) => {
+//   // Print watch/build result here...
+//   if ( err != null ) { throw err; /* new Error( err ) */ };
+//   process.send?.( { $key: '^webpack-ready' } );
+//   console.log(stats.toString({
+//     colors: true
+//   }));
+// });
