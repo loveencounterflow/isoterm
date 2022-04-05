@@ -74,7 +74,10 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   browser.on 'error',       => whisper '^cli/browser@445-22^', 'error'
   browser.on 'message',     => whisper '^cli/browser@445-23^', 'message'
   browser.on 'spawn',       => whisper '^cli/browser@445-24^', 'spawn'
-  browser.on 'exit',        => whisper '^cli/browser@445-25^', 'exit'; process.exit 0
+  #.........................................................................................................
+  browser.on 'exit', =>
+    info CND.reverse " ^cli/browser@445-25^ browser exiting; terminating server process PID #{process.pid} "
+    process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
     info CND.reverse " ^cli/browser@445-26^ process exiting; terminating browser process PID #{browser.pid} "
