@@ -38,6 +38,7 @@ parse_arguments = ->
 #-----------------------------------------------------------------------------------------------------------
 start_server = -> new Promise ( resolve, reject ) =>
   port    = null
+  host    = '127.0.0.1'
   signals =
     webpack:    false
     server:     false
@@ -47,11 +48,11 @@ start_server = -> new Promise ( resolve, reject ) =>
     signals[ signal ] = true
     if signals.webpack and signals.server and ( not signals.browser )
       signals.browser = true
-      resolve { server, port, }
+      resolve { server, host, port, }
   #.........................................................................................................
   process.chdir xterm_path
   port              = await H.find_free_port { port: port_pattern, fallback: null, }
-  env               = { process.env..., xxterm_port: port, }
+  env               = { process.env..., xxterm_host: host, xxterm_port: port, }
   cp_cfg            = { detached: false, env, }
   # cp_cfg            = { detached: false, }
   process.on 'uncaughtException', ( error ) =>
@@ -98,12 +99,13 @@ start_server = -> new Promise ( resolve, reject ) =>
 
 #-----------------------------------------------------------------------------------------------------------
 start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
-  defaults    = { port: null, }
+  defaults    = { server: null, host: null, port: null, }
   { server
+    host
     port }    = { defaults..., cfg..., }
   cmd         = 'chromium'
   ### TAINT get address from `start_server()` ###
-  address     = "http://localhost:#{port}"
+  address     = "http://#{host}:#{port}"
   parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   help '^cli/browser@445-14^', "spawning #{cmd} #{parameters.join ' '}"
@@ -125,17 +127,17 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
 #-----------------------------------------------------------------------------------------------------------
 run = ->
   parse_arguments()
-  { server, port, } = await start_server()
-  { browser, }      = await start_browser { server, port, }
+  { server, host, port, } = await start_server()
+  { browser, }            = await start_browser { server, host, port, }
   return null
 
 #-----------------------------------------------------------------------------------------------------------
-demo_websocket = ( port, pid ) =>
-  url     = "ws://localhost:#{port}/terminals/#{pid}"
+demo_websocket = ( host, port, pid ) =>
+  url     = "ws://#{host}:#{port}/terminals/#{pid}"
   WS      = require 'ws'
   ws      = new WS.WebSocket url
   ws.on 'open', () =>
-    urge "^445-23^ websocket open"
+    urge "^cli/demo_websocket@445-27^ websocket open at #{url}"
     # ws.send 'echo "helo from server"'
   # ws.on 'message', ( data ) =>
   #   if cfg.echo
