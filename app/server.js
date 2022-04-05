@@ -175,7 +175,7 @@ function startServer() {
   console.log('^server.js@734-2^ express app going to listen to http://' + host + ':' + port);
   const server = app.listen( { host, port, }, () => {
     console.log('^server.js@734-3^ express app listening to http://' + host + ':' + port);
-    process.send( { $key: '^connect', port, } ) } );
+    process.send?.( { $key: '^connect', port, } ) } );
 
   //--------------------------------------------------------------------------------------------------------
   server.on('error',function( error ) {
