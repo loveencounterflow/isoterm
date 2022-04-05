@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/loveencounterflow/xxterm#readme",
   "dependencies": {
+    "@vamidicreations/screenres": "^2.0.3",
     "cnd": "^9.2.2",
     "express": ">=5.0.0-beta.1",
     "guy": "4.1.2",
