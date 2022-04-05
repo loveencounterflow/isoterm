@@ -106,6 +106,7 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   address     = "http://localhost:#{port}"
   parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
+  help '^cli/browser@445-14^', "spawning #{cmd} #{parameters.join ' '}"
   browser     = CP.spawn cmd, parameters, cp_cfg
   browser.on 'error', ( error ) => warn '^cli/browser@445-14^', error
   browser.on 'close',       => whisper '^cli/browser@445-15^', 'close'
@@ -116,7 +117,7 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   browser.on 'exit',        => whisper '^cli/browser@445-20^', 'exit'; process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
-    info CND.reverse " ^409-1^ process exiting; terminating browser process PID #{browser.pid} "
+    info CND.reverse " ^cli/browser@445-14^ process exiting; terminating browser process PID #{browser.pid} "
     browser.kill()
   #.........................................................................................................
   return null
