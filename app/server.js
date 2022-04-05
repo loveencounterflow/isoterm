@@ -145,9 +145,11 @@ function startServer() {
       delete logs[term.pid];
     });
   });
-  // ### TAINT must validate port is legal number
-  var port = process.env.xxterm_port || 3000,
-      host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
+  // ### TAINT must validate host, port
+  // const host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
+  const host = process.env.xxterm_host || '127.0.0.1';
+  const port = process.env.xxterm_port || 3000;
+  log( CND.blue( '^server.js@734-1^', { host, port, } ) );
 
   GUY.process.on_exit( () => {
     console.log( CND.blue( '^server.js@734-1^' ) );
