@@ -56,40 +56,40 @@ start_server = -> new Promise ( resolve, reject ) =>
   cp_cfg            = { detached: false, env, }
   # cp_cfg            = { detached: false, }
   process.on 'uncaughtException', ( error ) =>
-    warn '^cli/server@445-1^', error
+    warn '^cli/server@445-2^', error
     process.exit 99
   try
     server            = CP.fork start_path, cp_cfg
   catch error
-    warn '^445-9871^', error
-  # server.stderr.on 'data', ( data ) => warn '^445-87^', CND.reverse data
-  # server.stdout.on 'data', ( data ) => info '^445-87^', CND.reverse data
+    warn '^445-3^', error
+  # server.stderr.on 'data', ( data ) => warn '^445-4^', CND.reverse data
+  # server.stdout.on 'data', ( data ) => info '^445-5^', CND.reverse data
   # debug '^5345^', server.stderr.toString().trim()
   #.........................................................................................................
-  server.on 'error', ( error ) => warn '^cli/server@445-2^', error
+  server.on 'error', ( error ) => warn '^cli/server@445-6^', error
   #.........................................................................................................
   server.on 'message', ( d ) =>
-    # info '^cli/server@445-3^', d
+    # info '^cli/server@445-7^', d
     switch d?.$key ? null
       when '^connect'
-        help "^cli/server@445-4^ serving on port #{rpr d.port}"
+        help "^cli/server@445-8^ serving on port #{rpr d.port}"
         conclude 'server'
       when '^webpack-ready'
-        help "^cli/server@445-5^ webpack ready"
+        help "^cli/server@445-9^ webpack ready"
         conclude 'webpack'
       when '^term-pid'
-        help "^cli/server@445-6^ received terminal PID #{d.pid}"
-        demo_websocket port, d.pid
+        help "^cli/server@445-10^ received terminal PID #{d.pid}"
+        demo_websocket host, port, d.pid
       else
-        warn "^cli/server@445-7^ unknown message format: #{rpr d}"
+        warn "^cli/server@445-11^ unknown message format: #{rpr d}"
     return null
   #.........................................................................................................
-  server.on 'close',      => whisper '^cli/server@445-8^', 'close'
-  server.on 'disconnect', => whisper '^cli/server@445-9^', 'disconnect'
-  server.on 'error',      => whisper '^cli/server@445-10^', 'error'
-  server.on 'message',    => whisper '^cli/server@445-11^', 'message'
-  server.on 'spawn',      => whisper '^cli/server@445-12^', 'spawn'
-  server.on 'exit',       => whisper '^cli/server@445-13^', 'exit'; process.exit 0
+  server.on 'close',      => whisper '^cli/server@445-12^', 'close'
+  server.on 'disconnect', => whisper '^cli/server@445-13^', 'disconnect'
+  server.on 'error',      => whisper '^cli/server@445-14^', 'error'
+  server.on 'message',    => whisper '^cli/server@445-15^', 'message'
+  server.on 'spawn',      => whisper '^cli/server@445-16^', 'spawn'
+  server.on 'exit',       => whisper '^cli/server@445-17^', 'exit'; process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
     info CND.reverse " ^409-1^ process exiting; terminating server process PID #{server.pid} "
@@ -108,18 +108,18 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   address     = "http://#{host}:#{port}"
   parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
-  help '^cli/browser@445-14^', "spawning #{cmd} #{parameters.join ' '}"
+  help '^cli/browser@445-18^', "spawning #{cmd} #{parameters.join ' '}"
   browser     = CP.spawn cmd, parameters, cp_cfg
-  browser.on 'error', ( error ) => warn '^cli/browser@445-14^', error
-  browser.on 'close',       => whisper '^cli/browser@445-15^', 'close'
-  browser.on 'disconnect',  => whisper '^cli/browser@445-16^', 'disconnect'
-  browser.on 'error',       => whisper '^cli/browser@445-17^', 'error'
-  browser.on 'message',     => whisper '^cli/browser@445-18^', 'message'
-  browser.on 'spawn',       => whisper '^cli/browser@445-19^', 'spawn'
-  browser.on 'exit',        => whisper '^cli/browser@445-20^', 'exit'; process.exit 0
+  browser.on 'error', ( error ) => warn '^cli/browser@445-19^', error
+  browser.on 'close',       => whisper '^cli/browser@445-20^', 'close'
+  browser.on 'disconnect',  => whisper '^cli/browser@445-21^', 'disconnect'
+  browser.on 'error',       => whisper '^cli/browser@445-22^', 'error'
+  browser.on 'message',     => whisper '^cli/browser@445-23^', 'message'
+  browser.on 'spawn',       => whisper '^cli/browser@445-24^', 'spawn'
+  browser.on 'exit',        => whisper '^cli/browser@445-25^', 'exit'; process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
-    info CND.reverse " ^cli/browser@445-14^ process exiting; terminating browser process PID #{browser.pid} "
+    info CND.reverse " ^cli/browser@445-26^ process exiting; terminating browser process PID #{browser.pid} "
     browser.kill()
   #.........................................................................................................
   return null
