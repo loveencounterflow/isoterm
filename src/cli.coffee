@@ -42,6 +42,17 @@ parse_arguments = ->
 
 #-----------------------------------------------------------------------------------------------------------
 start_server = -> new Promise ( resolve, reject ) =>
+  host                    = '127.0.0.1'
+  port                    = await H.find_free_port { port: port_pattern, fallback: null, }
+  process.env.xxterm_host = host
+  process.env.xxterm_port = port
+  process.chdir xterm_path
+  require start_path
+  #.........................................................................................................
+  return resolve { server: process, host, port, }
+
+#-----------------------------------------------------------------------------------------------------------
+start_server_in_own_process = -> new Promise ( resolve, reject ) =>
   port    = null
   host    = '127.0.0.1'
   signals =
