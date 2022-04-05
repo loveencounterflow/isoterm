@@ -52,68 +52,6 @@ start_server = -> new Promise ( resolve, reject ) =>
   return resolve { server: process, host, port, }
 
 #-----------------------------------------------------------------------------------------------------------
-start_server_in_own_process = -> new Promise ( resolve, reject ) =>
-  port    = null
-  host    = '127.0.0.1'
-  signals =
-    webpack:    false
-    server:     false
-    browser:    false
-  #.........................................................................................................
-  conclude = ( signal ) =>
-    signals[ signal ] = true
-    if signals.webpack and signals.server and ( not signals.browser )
-      signals.browser = true
-      resolve { server, host, port, }
-  #.........................................................................................................
-  process.chdir xterm_path
-  port              = await H.find_free_port { port: port_pattern, fallback: null, }
-  env               = { process.env..., xxterm_host: host, xxterm_port: port, }
-  cp_cfg            = { detached: false, env, }
-  # cp_cfg            = { detached: false, }
-  process.on 'uncaughtException', ( error ) =>
-    warn '^cli/server@445-2^', error
-    process.exit 99
-  try
-    server            = CP.fork start_path, cp_cfg
-  catch error
-    warn '^445-3^', error
-  # server.stderr.on 'data', ( data ) => warn '^445-4^', CND.reverse data
-  # server.stdout.on 'data', ( data ) => info '^445-5^', CND.reverse data
-  # debug '^5345^', server.stderr.toString().trim()
-  #.........................................................................................................
-  server.on 'error', ( error ) => warn '^cli/server@445-6^', error
-  #.........................................................................................................
-  server.on 'message', ( d ) =>
-    # info '^cli/server@445-7^', d
-    switch d?.$key ? null
-      when '^connect'
-        help "^cli/server@445-8^ serving on port #{rpr d.port}"
-        conclude 'server'
-      when '^webpack-ready'
-        help "^cli/server@445-9^ webpack ready"
-        conclude 'webpack'
-      when '^term-pid'
-        help "^cli/server@445-10^ received terminal PID #{d.pid}"
-        demo_websocket host, port, d.pid
-      else
-        warn "^cli/server@445-11^ unknown message format: #{rpr d}"
-    return null
-  #.........................................................................................................
-  server.on 'close',      => whisper '^cli/server@445-12^', 'close'
-  server.on 'disconnect', => whisper '^cli/server@445-13^', 'disconnect'
-  server.on 'error',      => whisper '^cli/server@445-14^', 'error'
-  server.on 'message',    => whisper '^cli/server@445-15^', 'message'
-  server.on 'spawn',      => whisper '^cli/server@445-16^', 'spawn'
-  server.on 'exit',       => whisper '^cli/server@445-17^', 'exit'; process.exit 0
-  #.........................................................................................................
-  GUY.process.on_exit ->
-    info CND.reverse " ^409-1^ process exiting; terminating server process PID #{server.pid} "
-    server.kill()
-  #.........................................................................................................
-  return null
-
-#-----------------------------------------------------------------------------------------------------------
 start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   defaults    = { server: null, host: null, port: null, }
   { server
