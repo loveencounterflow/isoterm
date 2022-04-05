@@ -22,7 +22,9 @@ const log             = console.log;
 // Whether to use binary transport.
 const USE_BINARY = os.platform() !== "win32";
 
+
 function startServer() {
+  return new Promise( ( resolve, reject ) => {
   var app = express();
   expressWs(app);
 
@@ -159,7 +161,8 @@ function startServer() {
   console.log('^server.js@734-2^ express app going to listen to http://' + host + ':' + port);
   const server = app.listen( { host, port, }, () => {
     console.log('^server.js@734-3^ express app listening to http://' + host + ':' + port);
-    process.send?.( { $key: '^connect', port, } ) } );
+    process.send?.( { $key: '^connect', port, } )
+    resolve(); } );
 
   //--------------------------------------------------------------------------------------------------------
   server.on('error',function( error ) {
@@ -167,7 +170,9 @@ function startServer() {
     log( CND.red( CND.reverse( '^server.js@734-16^', error.message ) ) );
     process.exit( 111 );
     throw error; } );
+    } ); // Promise
 
 }
+
 
 module.exports = startServer;

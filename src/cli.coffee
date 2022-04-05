@@ -22,11 +22,11 @@ PATH                      = require 'path'
 CP                        = require 'child_process'
 #...........................................................................................................
 xterm_path                = PATH.resolve PATH.join __dirname, '../xterm'
-start_path                = PATH.resolve PATH.join __dirname, '../app/start.js'
 H                         = require './helpers'
 port_pattern              = /^33[0-9]{3}$/
 # port_pattern              = /^8081$/
 GUY                       = require 'guy'
+_start_server             = require '../app/server.js'
 
 
 #-----------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ start_server = -> new Promise ( resolve, reject ) =>
   process.env.xxterm_host = host
   process.env.xxterm_port = port
   process.chdir xterm_path
-  require start_path
+  await _start_server()
   #.........................................................................................................
   return resolve { server: process, host, port, }
 
