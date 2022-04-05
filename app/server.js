@@ -17,6 +17,7 @@ const express         = require( 'express' );
 var expressWs         = require( expressWs_path );
 var os                = require('os');
 var pty               = require( pty_path );
+const log             = console.log;
 
 // Whether to use binary transport.
 const USE_BINARY = os.platform() !== "win32";
@@ -65,7 +66,7 @@ function startServer() {
         encoding: USE_BINARY ? null : 'utf8'
       });
 
-    console.log('Created terminal with PID: ' + term.pid);
+    log('Created terminal with PID: ' + term.pid);
     process.send?.( { $key: '^term-pid', pid: term.pid, } );
     terminals[term.pid] = term;
     logs[term.pid] = '';
@@ -83,13 +84,13 @@ function startServer() {
         term = terminals[pid];
 
     term.resize(cols, rows);
-    console.log('Resized terminal ' + pid + ' to ' + cols + ' cols and ' + rows + ' rows.');
+    log('Resized terminal ' + pid + ' to ' + cols + ' cols and ' + rows + ' rows.');
     res.end();
   });
 
   app.ws('/terminals/:pid', function (ws, req) {
     var term = terminals[parseInt(req.params.pid)];
-    console.log('Connected to terminal ' + term.pid);
+    log('Connected to terminal ' + term.pid);
     ws.send(logs[term.pid]);
 
     // string message buffering
@@ -139,7 +140,7 @@ function startServer() {
     });
     ws.on('close', function () {
       term.kill();
-      console.log('Closed terminal ' + term.pid);
+      log('Closed terminal ' + term.pid);
       // Clean things up
       delete terminals[term.pid];
       delete logs[term.pid];
@@ -152,54 +153,54 @@ function startServer() {
   log( CND.blue( '^server.js@734-1^', { host, port, } ) );
 
   GUY.process.on_exit( () => {
-    console.log( CND.blue( '^server.js@734-1^' ) );
+    log( CND.blue( '^server.js@734-2^' ) );
   } );
   process.on( 'uncaughtException', ( error ) => {
-     CND.red( '^server.js@734-2^', error );
+     log( CND.red( '^server.js@734-3^', error ) );
      process.exit( 123 ); })
   process.on( 'unhandledRejection', ( error ) => {
-     CND.red( '^server.js@734-3^', error );
+     log( CND.red( '^server.js@734-4^', error ) );
      process.exit( 123 ); })
   process.on('uncaughtExceptionMonitor', (error, origin) => {
-     CND.red( '^server.js@734-4^', error );
-     CND.red( '^server.js@734-5^', origin );
+     log( CND.red( '^server.js@734-5^', error ) );
+     log( CND.red( '^server.js@734-6^', origin ) );
      process.exit( 123 ); })
   process.on('unhandledRejection', (reason, promise) => {
-    console.log( CND.red( '^server.js@734-6^', 'Unhandled Rejection at:', promise, 'reason:', reason ) ); } );
+    log( CND.red( '^server.js@734-7^', 'Unhandled Rejection at:', promise, 'reason:', reason ) ); } );
 
-  app.on( 'error',            ( error ) => { console.log( CND.blue( '^server.js@734-7^', error ) ); } );
-  process.stderr.on( 'data',  ( data  ) => { console.log( CND.blue( '^server.js@734-8^', data  ) ); } );
+  app.on( 'error',            ( error ) => { log( CND.blue( '^server.js@734-8^', error ) ); } );
+  process.stderr.on( 'data',  ( data  ) => { log( CND.blue( '^server.js@734-9^', data  ) ); } );
   var server = null;
   try {
     // -----------------------------------------------------------------------------------------------------
     // server = app.listen( port, host, ( error ) => {
-    //   console.log( CND.red( '^server.js@734-9^', error ) );
-    //   console.log( CND.red( '^server.js@734-10^ express app listening to http://127.0.0.1:' + port ) );
+    //   log( CND.red( '^server.js@734-10^', error ) );
+    //   log( CND.red( '^server.js@734-11^ express app listening to http://127.0.0.1:' + port ) );
     //   process.send( { $key: '^connect', port, } ) } );
     // server.on('error',function( error ) {
-    //   console.log( CND.red( '^server.js@734-11^', error.code ) );
+    //   log( CND.red( '^server.js@734-12^', error.code ) );
     //   if ( error != null ) { throw error; } } );
     // -----------------------------------------------------------------------------------------------------
     const HTTP = require( 'http' );
     server  = HTTP.createServer(app);
-    server.listen( port, host, ( error ) => {
-      console.log( CND.red( '^server.js@734-12^', error ) );
-      console.log( CND.red( '^server.js@734-13^ express app listening to http://127.0.0.1:' + port ) );
+    server.listen( { host, port, }, ( error ) => {
+      log( CND.red( '^server.js@734-13^', error ) );
+      log( CND.red( '^server.js@734-14^ express app listening to http://' + host + ':' + port ) );
       process.send( { $key: '^connect', port, } ) } );
     server.on('error',function( error ) {
-      // console.log( CND.red( CND.reverse( '^server.js@734-14^', error.code ) ) );
-      console.log( CND.red( CND.reverse( '^server.js@734-14^', error.message ) ) );
+      // log( CND.red( CND.reverse( '^server.js@734-15^', error.code ) ) );
+      log( CND.red( CND.reverse( '^server.js@734-16^', error.message ) ) );
       process.exit( 111 );
       throw error; } );
     // -----------------------------------------------------------------------------------------------------
   }
 
   catch ( error ) {
-    console.log( CND.red( '^server.js@734-15^', error ) );
+    log( CND.red( '^server.js@734-17^', error ) );
     };
-  // console.log( CND.yellow( '^server.js@734-16^', server ) );
-  console.log( CND.lime( '^server.js@734-17^', server === app ) );
-  server.on( 'error',            ( error ) => { console.log( CND.blue( '^server.js@734-18^', error ) ); } );
+  // log( CND.yellow( '^server.js@734-18^', server ) );
+  log( CND.lime( '^server.js@734-19^', server === app ) );
+  server.on( 'error',            ( error ) => { log( CND.blue( '^server.js@734-20^', error ) ); } );
 
 }
 
