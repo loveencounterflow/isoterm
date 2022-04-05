@@ -86,6 +86,9 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** make browser console output easier to look at from the web terminal
 * **[–]** handle race condition where a chosen port is no longer available so `server.js` fails to connect
 * **[–]** make browser size configurable
+* **[–]** start server in `cli` process, cutting down from 3 to 2 processes per terminal
+* **[–]** add option whether to start in user mode or in app (kiosk) mode (showing vs hiding user chrome
+  like address bar)
 
 ## Is Done
 
