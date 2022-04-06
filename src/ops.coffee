@@ -66,6 +66,7 @@ class Intercepted_console
   # trace:            ƒ trace()
 
 globalThis.console = new Proxy console, new Intercepted_console()
+globalThis.µ        = require 'mudom'
 console.log '^3938^', 'OK'
 
 
