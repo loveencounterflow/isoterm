@@ -59,11 +59,11 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
     port }    = { defaults..., cfg..., }
   cmd         = 'chromium'
   ### TAINT get address from `start_server()` ###
+  ### TAINT validate address not malformed ###
   address     = "http://#{host}:#{port}"
   screen      = get_screen_dimensions()
-  ### TAINT must ensure address does not contain literal quotes ###
-  # parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "--app='#{address}'", ]
-  parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "#{address}", ]
+  parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "--app=#{address}", ]
+  # parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "#{address}", ]
   # parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   help '^cli/browser@445-18^', "spawning #{cmd} #{parameters.join ' '}"
