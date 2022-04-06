@@ -5,19 +5,7 @@
 'use strict'
 
 
-log = console.log
-log '^554-1^', 'ops.js'
-
 _console = console
-# handler =
-#   get: ( target, key ) =>
-#     _console.log '^334-1^', key
-#     return target[ key ]
-#     # return Reflect.get arguments...
-
-#   log: ( P... ) =>
-#     _console.log '^334-2^', P
-#     return _console.log P...
 
 
 #===========================================================================================================
@@ -65,8 +53,9 @@ class Intercepted_console
   # timeStamp:        ƒ timeStamp()
   # trace:            ƒ trace()
 
-globalThis.console = new Proxy console, new Intercepted_console()
+globalThis.console  = new Proxy console, new Intercepted_console()
+globalThis.log      = console.log
 globalThis.µ        = require 'mudom'
 console.log '^3938^', 'OK'
-
+log "^ops@1^ OPS loaded"
 
