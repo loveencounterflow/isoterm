@@ -29,6 +29,7 @@
   "dependencies": {
     "@vamidicreations/screenres": "^2.0.3",
     "cnd": "^9.2.2",
+    "combokeys": "^3.0.1",
     "express": ">=5.0.0-beta.1",
     "guy": "4.1.2",
     "intertype": "^7.7.0",

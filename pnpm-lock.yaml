@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@vamidicreations/screenres': ^2.0.3
   cnd: ^9.2.2
+  combokeys: ^3.0.1
   express: '>=5.0.0-beta.1'
   guy: 4.1.2
   intertype: ^7.7.0
@@ -14,6 +15,7 @@ specifiers:
 dependencies:
   '@vamidicreations/screenres': 2.0.3
   cnd: 9.2.2
+  combokeys: 3.0.1
   express: 5.0.0-beta.1
   guy: 4.1.2
   intertype: 7.7.0
@@ -77,6 +79,10 @@ packages:
     hasBin: true
     dependencies:
       jsx-number-format: 0.1.5
+    dev: false
+
+  /combokeys/3.0.1:
+    resolution: {integrity: sha512-5nAfaLZ3oO3kA+/xdoL7t197UJTz2WWidyH3BBeU6hqHtvyFERICd0y3DQFrQkJFTKBrtUDck/xCLLoFpnjaCw==}
     dev: false
 
   /content-disposition/0.5.4:
