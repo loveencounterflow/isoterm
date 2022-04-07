@@ -62,8 +62,8 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   ### TAINT validate address not malformed ###
   address     = "http://#{host}:#{port}"
   screen      = get_screen_dimensions()
-  parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "--app=#{address}", ]
-  # parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "#{address}", ]
+  # parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "--app=#{address}", ]
+  parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "#{address}", "--auto-open-devtools-for-tabs", ]
   # parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
   help '^cli/browser@445-18^', "spawning #{cmd} #{parameters.join ' '}"
