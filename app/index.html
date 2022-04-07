@@ -11,12 +11,6 @@
     <!-- <link rel="stylesheet" href="/fonts.css"> -->
     <link rel="stylesheet" href="/xterm.css">
     <link rel="stylesheet" href="/style.css">
-    <script src="/static/browserified/mudom.js"></script>
-    <script src="/static/browserified/combokeys.js"></script>
-    <script src="/static/ops.js"></script>
-    <script>
-      globalThis.XXTERM = {};
-      </script>
   </head>
   <body>
     <a href='.'><button>reload</button></a>
@@ -80,6 +74,14 @@
         </div>
       </div>
     </div>
+
+    <script src="/static/browserified/mudom.js"></script>
+    <script src="/static/browserified/combokeys.js"></script>
+    <script src="/static/ops.js"></script>
+    <script>
+      globalThis.XXTERM = {};
+      </script>
+
       <script src="dist/client-bundle.js" defer ></script>
       <script>
       var tab = localStorage.getItem("tab");
