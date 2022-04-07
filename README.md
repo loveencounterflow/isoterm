@@ -89,6 +89,8 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** start server in `cli` process, cutting down from 3 to 2 processes per terminal
 * **[–]** add option whether to start in user mode or in app (kiosk) mode (showing vs hiding user chrome
   like address bar)
+* **[–]** find out how to implement custom key shortcuts (key bindings) when terminal DOM element has focus;
+  currently this is blocked by `xterm/src/browser/Terminal.ts:446` &al.
 
 ## Is Done
 
@@ -102,6 +104,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[+]** each `xxterm` instance should look for its own free port, fail with message in case it doesn't
   succeed in the configured range, with configured end digits
 * **[+]** implement opening browser in fullscreen
+* **[+]** implement technique to add key shortcut that overrides browser defaults such as `ctrl+l`, `ctrl+k`
 
 
 
