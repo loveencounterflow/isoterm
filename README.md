@@ -91,6 +91,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
   like address bar)
 * **[–]** find out how to implement custom key shortcuts (key bindings) when terminal DOM element has focus;
   currently this is blocked by `xterm/src/browser/Terminal.ts:446` &al.
+* **[–]** infinite zoom plane / utopia planitia?
 
 ## Is Done
 
