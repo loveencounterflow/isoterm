@@ -57,22 +57,9 @@ globalThis.console  = new Proxy console, new Intercepted_console()
 globalThis.log      = console.log
 globalThis.µ        = require 'mudom'
 # globalThis.XXTERM   = {};
-Combokeys           = require 'combokeys'
-count               = 0
-# ckeys               = new Combokeys document.documentElement
-# ckeys               = new Combokeys µ.DOM.select_id 'terminal-container'
-# ckeys.bind 'ctrl+y', ( event, key ) -> log '^ops@756^', event
-# ckeys.bind 'ctrl+k', ( event, key ) ->
-#   log '^ops@756^', "show or hide side bar"
-#   event.preventDefault()
-#   event.stopPropagation()
-#   return false
-# ckeys.bind 'ctrl+l', ( event, key ) ->
-#   log '^ops@756^', "activate address bar"
-#   event.preventDefault()
-#   event.stopPropagation()
-#   return false
 
-console.log '^3938^', 'OK'
-log "^ops@1^ OPS loaded"
+console.log '^ops@4^', 'OK'
+log "^ops@5^ OPS loaded"
+# console.log '^ops@6^', term
+# console.log '^ops@7^', term.onKey
 
