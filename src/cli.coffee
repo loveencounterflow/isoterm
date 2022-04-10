@@ -47,6 +47,7 @@ start_server = -> new Promise ( resolve, reject ) =>
   process.env.xxterm_host = host
   process.env.xxterm_port = port
   process.chdir xterm_path
+  ### TAINT use callback or events to communicate data such as `term.pid` from `server.js` ###
   await _start_server()
   #.........................................................................................................
   return resolve { server: process, host, port, }
