@@ -31,7 +31,9 @@
 
 Clone this repo into a convenient location, then run `pnpm install` (or `npm install` if you prefer).
 
+
 ```bash
+pnpm add -g yarn # or `npm install -g yarn`
 git clone https://github.com/loveencounterflow/xxterm
 cd /path/to/xxterm
 pnpm install
@@ -41,6 +43,14 @@ The `clone` command will take a little while because XXTerm includes some fairly
 less the reason I started this is to have good coverage of CJK codepoints). The `install` command will also
 take some time because it calls `git-clone-xtermjs`, a script that clones and prepares
 [xterm.js](https://github.com/xtermjs/xterm.js).
+
+> **Note** `xterm` will want to run tests using `yarn` which should be installed globally. The tests will
+> fail unless `yarn` is found, and because of this failure, transpilation of modules will likewise not
+> complete, meaning the `xterm` subdirectory is left in an unusable state. What's more, the tests will also
+> download `playwright` which is needed for tests, incurring a sizable additional dependency that is only
+> needed for a few tests. I hope that in the future, we can resolve these inconveniences and avoid
+> unnecessary downloads, but for the time being I do not see precisely how to accomplish that.
+
 
 Chromium is currently hardcoded to be used for the web terminal; on Debian-ish system, install it with
 
