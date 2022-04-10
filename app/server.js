@@ -68,7 +68,8 @@ function startServer() {
         encoding: USE_BINARY ? null : 'utf8'
       });
 
-    log('Created terminal with PID: ' + term.pid);
+    log('^server.js@734-1^ URL: ' + req.protocol + '://' + req.host + req.originalUrl);
+    log('^server.js@734-1^ Created terminal with PID: ' + term.pid);
     process.send?.( { $key: '^term-pid', pid: term.pid, } );
     terminals[term.pid] = term;
     logs[term.pid] = '';
@@ -80,6 +81,7 @@ function startServer() {
   });
 
   app.post('/terminals/:pid/size', (req, res) => {
+    log('^server.js@734-1^ URL: ' + req.protocol + '://' + req.host + req.originalUrl);
     var pid = parseInt(req.params.pid),
         cols = parseInt(req.query.cols),
         rows = parseInt(req.query.rows),

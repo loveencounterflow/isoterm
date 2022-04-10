@@ -73,7 +73,10 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   browser.on 'disconnect',  => whisper '^cli/browser@445-21^', 'disconnect'
   browser.on 'error',       => whisper '^cli/browser@445-22^', 'error'
   browser.on 'message',     => whisper '^cli/browser@445-23^', 'message'
-  browser.on 'spawn',       => whisper '^cli/browser@445-24^', 'spawn'
+  browser.on 'spawn',       =>
+    whisper '^cli/browser@445-24^', 'spawn'
+    demo_websocket host, port, browser.pid
+    return null
   #.........................................................................................................
   browser.on 'exit', =>
     info CND.reverse " ^cli/browser@445-25^ browser exiting; terminating server process PID #{process.pid} "
@@ -97,12 +100,14 @@ demo_websocket = ( host, port, pid ) =>
   url     = "ws://#{host}:#{port}/terminals/#{pid}"
   WS      = require 'ws'
   ws      = new WS.WebSocket url
+  urge "^cli/demo_websocket@445-27^ opening websocket at #{url}"
   ws.on 'open', () =>
     urge "^cli/demo_websocket@445-27^ websocket open at #{url}"
-    # ws.send 'echo "helo from server"'
-  # ws.on 'message', ( data ) =>
-  #   if cfg.echo
-  #     process.stdout.write data # .toString()
+    ws.send 'echo "helo from server"'
+  ws.on 'message', ( data ) =>
+    # if cfg.echo
+    process.stdout.write data # .toString()
+    return null
   return null
 
 
