@@ -79,9 +79,11 @@ console.log '^ops-late@5^', term
 
 copy_keys = [
   'xxx'
-  'type'
+  # 'type'
   'key'
+  'code'
   'keyCode' ]
+
 modifier_names = [
   'Alt'
   'AltGraph'
@@ -90,10 +92,21 @@ modifier_names = [
   'Shift'
   'CapsLock' ]
 
+locations = [
+  'standard'
+  'left'
+  'right'
+  'numpad' ]
+
+
 xxx_from_event = ( event ) ->
-  d       = {}
-  d[ k ]  = event[ k ] for k in copy_keys
-  xxx     = []
+  d         = {}
+  d[ k ]    = event[ k ] for k in copy_keys
+  xxx       = []
+  location  = locations[ event.location ]
+  if location isnt 'standard'
+    d.location = location
+    xxx.push location
   for k in modifier_names
     continue unless event.getModifierState k
     xxx.push k
@@ -106,22 +119,26 @@ xxx_from_event = ( event ) ->
 handle_hotkeys = ( d ) ->
   switch d.xxx
     when 'Control+l'
-      log '^ops-late@345^', "prevent activation of address bar"
+      log '^ops-late@6^', "prevent activation of address bar"
+      d.event.stopPropagation()
+      d.event.preventDefault()
+      return false
+    when 'Control+q'
+      log '^ops-late@6^', "quit app"
       d.event.stopPropagation()
       d.event.preventDefault()
       return false
   return null
 
-µ.DOM.on document.documentElement, 'keydown', ( event ) ->
-  log '^ops-late@3958^', xxx_from_event event
+handle_keys = ( event ) ->
+  log '^ops-late@7^', event
+  log '^ops-late@7^', xxx_from_event event
   return handle_hotkeys xxx_from_event event
-# µ.DOM.on document.documentElement, 'keypress', ( event ) ->
-#   log '^ops-late@3958^', xxx_from_event event
-#   return handle_hotkeys xxx_from_event event
-term.onKey ( event ) ->
-  log '^ops-late@12^', xxx_from_event event.domEvent
-  return handle_hotkeys xxx_from_event event.domEvent
-  # term.paste 'helo'
+
+
+µ.DOM.on document.documentElement, 'keydown', ( event ) -> handle_keys event
+term.onKey                                    ( event ) -> handle_keys event.domEvent
+# term.paste 'helo'
 
 
 
