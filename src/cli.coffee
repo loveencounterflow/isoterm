@@ -102,6 +102,8 @@ demo_websocket = ( host, port, pid ) =>
   WS      = require 'ws'
   ws      = new WS.WebSocket url
   urge "^cli/demo_websocket@445-27^ opening websocket at #{url}"
+  urge "^cli/demo_websocket@445-27^ browser.pid #{pid}"
+  urge "^cli/demo_websocket@445-27^ process.pid #{process.pid}"
   ws.on 'open', () =>
     urge "^cli/demo_websocket@445-27^ websocket open at #{url}"
     ws.send 'echo "helo from server"'
