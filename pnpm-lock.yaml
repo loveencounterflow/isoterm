@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@vamidicreations/screenres': ^2.0.3
   cnd: ^9.2.2
+  datom: ^10.0.0
   express: '>=5.0.0-beta.1'
   guy: 4.1.2
   intertype: ^7.7.0
@@ -14,6 +15,7 @@ specifiers:
 dependencies:
   '@vamidicreations/screenres': 2.0.3
   cnd: 9.2.2
+  datom: 10.0.0
   express: 5.0.0-beta.1
   guy: 4.1.2
   intertype: 7.7.0
@@ -72,6 +74,11 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
+  /cnd/9.2.1:
+    resolution: {integrity: sha512-JszZtSlOCxkIvNPKpw1PmIcQUjYO+pBqVoKVH2STHLtG4JHHJ1NHowv39lhyxzlPxUTZk7pZ3qO7CfrfJ8ZSKw==}
+    hasBin: true
+    dev: false
+
   /cnd/9.2.2:
     resolution: {integrity: sha512-F+/H+7luk4fZkvN0+MT0I2nwn80YM/EtfMttNUFxENR50XJH4g0KgQevzeyEJ8B6t6l8Tb4Xti6QAksa8DmePA==}
     hasBin: true
@@ -98,6 +105,25 @@ packages:
   /cookie/0.4.1:
     resolution: {integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /cupofjoe/0.2.1:
+    resolution: {integrity: sha512-kZHlb3DmPu2jV0rmZvqsGwI8OEy+VEyN+50bUFp95HrD1buun7G9BVpf286UiL+sNfjXEn4EdbAFHASkxibSHQ==}
+    dependencies:
+      cnd: 9.2.1
+      intertype: 7.6.5
+      multimix: 5.0.0
+    dev: false
+
+  /datom/10.0.0:
+    resolution: {integrity: sha512-aP1hTyf6fziuE4BqufBG4R/xYdXFU+S25c/B8agNnfoVJNfdGO1epzLhG5VY9YcYV14c69ukW2K2zLw/yh8nAA==}
+    dependencies:
+      cnd: 9.2.2
+      cupofjoe: 0.2.1
+      emittery: 0.6.0
+      intertype: 7.6.5
+      letsfreezethat: 3.1.0
+      multimix: 5.0.0
     dev: false
 
   /debug/2.6.9:
@@ -132,6 +158,11 @@ packages:
 
   /ee-first/1.1.1:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
+    dev: false
+
+  /emittery/0.6.0:
+    resolution: {integrity: sha512-6EMRGr9KzYWp8DzHFZsKVZBsMO6QhAeHMeHND8rhyBNCHKMLpgW9tZv40bwN3rAIKRS5CxcK8oLRKUJSB9h7yQ==}
+    engines: {node: '>=10'}
     dev: false
 
   /encodeurl/1.0.2:
@@ -241,6 +272,12 @@ packages:
 
   /inherits/2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
+    dev: false
+
+  /intertype/7.6.5:
+    resolution: {integrity: sha512-763YK3ezLYy9FkX+cTTg/qwGHteqlaTMiec9a2sVAKm7kXp9e7QkzbyYS6u4CcbLxx12L8bcRbe3SFsPeaJCMA==}
+    dependencies:
+      multimix: 5.0.0
     dev: false
 
   /intertype/7.6.7:
