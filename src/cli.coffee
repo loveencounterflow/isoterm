@@ -27,6 +27,14 @@ port_pattern              = /^33[0-9]{3}$/
 # port_pattern              = /^8081$/
 GUY                       = require 'guy'
 _start_server             = require '../app/server.js'
+#...........................................................................................................
+DATOM                     = require 'datom'
+# { new_datom
+#   new_xemitter
+#   select }                = DATOM.export()
+XE                        = DATOM.new_xemitter()
+XE.listen_to_all      ( key, d  ) -> debug '^cli/xemitter@445-27^', d
+XE.listen_to_unheard  ( key, d  ) -> debug '^cli/xemitter@445-27^', d
 
 
 #-----------------------------------------------------------------------------------------------------------
@@ -48,7 +56,8 @@ start_server = -> new Promise ( resolve, reject ) =>
   process.env.xxterm_port = port
   process.chdir xterm_path
   ### TAINT use callback or events to communicate data such as `term.pid` from `server.js` ###
-  await _start_server()
+  await _start_server XE
+  XE.listen_to '^server/terminal/pid', ( { pid } ) -> demo_websocket host, port, pid
   #.........................................................................................................
   return resolve { server: process, host, port, }
 
@@ -74,10 +83,11 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   browser.on 'disconnect',  => whisper '^cli/browser@445-21^', 'disconnect'
   browser.on 'error',       => whisper '^cli/browser@445-22^', 'error'
   browser.on 'message',     => whisper '^cli/browser@445-23^', 'message'
-  browser.on 'spawn',       =>
-    whisper '^cli/browser@445-24^', 'spawn'
-    demo_websocket host, port, browser.pid
-    return null
+  browser.on 'spawn',       => whisper '^cli/browser@445-23^', 'spawn'
+  # browser.on 'spawn',       =>
+  #   whisper '^cli/browser@445-24^', 'spawn'
+  #   demo_websocket host, port, browser.pid
+  #   return null
   #.........................................................................................................
   browser.on 'exit', =>
     info CND.reverse " ^cli/browser@445-25^ browser exiting; terminating server process PID #{process.pid} "
@@ -114,9 +124,11 @@ demo_websocket = ( host, port, pid ) =>
   return null
 
 
+
 ############################################################################################################
 do =>
   # GUY.process.on_exit ->
   #   info CND.reverse " ^409-7^ process exiting "
   await run()
+
 

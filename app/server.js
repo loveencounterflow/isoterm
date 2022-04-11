@@ -23,7 +23,8 @@ const log             = console.log;
 const USE_BINARY = os.platform() !== "win32";
 
 
-function startServer() {
+/* ### NOTE: `XE` is a `datom/xemitter`` instance */
+function startServer( XE ) {
   return new Promise( ( resolve, reject ) => {
   var app = express();
   expressWs(app);
@@ -70,7 +71,7 @@ function startServer() {
 
     log('^server.js@734-1^ URL: ' + req.protocol + '://' + req.host + req.originalUrl);
     log('^server.js@734-1^ Created terminal with PID: ' + term.pid);
-    process.send?.( { $key: '^term-pid', pid: term.pid, } );
+    XE.emit( '^server/terminal/pid', { pid: term.pid, } );
     terminals[term.pid] = term;
     logs[term.pid] = '';
     term.on('data', function(data) {
