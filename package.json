@@ -1,6 +1,6 @@
 {
   "name": "xxterm",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Terminal With Precisely Configurable Fonts Using CSS Unicode Ranges",
   "main": "./.",
   "scripts": {
