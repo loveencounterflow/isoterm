@@ -140,6 +140,9 @@ handle_keys = ( event ) ->
 term.onKey                                    ( event ) -> handle_keys event.domEvent
 # term.paste 'helo'
 
+# log '^ops-late@7^', require 'cnd'
+log '^ops-late@7^', require 'guy'
+log '^ops-late@7^', require 'datom'
 
 
 ###

@@ -57,9 +57,16 @@ globalThis.console  = new Proxy console, new Intercepted_console()
 globalThis.log      = console.log
 globalThis.µ        = require 'mudom'
 # globalThis.XXTERM   = {};
+DATOM = require 'datom'
+{ new_datom
+  new_xemitter
+  select }                = DATOM.export()
 
-console.log '^ops@4^', 'OK'
-log "^ops@5^ OPS loaded"
+# XE = new_xemitter()
+# XE.listen_to '^server/terminal/pid', ( { pid } ) -> log '^ops-late@7^', "PID: #{pid}"
+# XE.emit '^server/terminal/pid', { pid: 1234, }
+# console.log '^ops@4^', 'OK'
+# log "^ops@5^ OPS loaded"
 # console.log '^ops@6^', term
 # console.log '^ops@7^', term.onKey
 

@@ -4,7 +4,8 @@ set -euo pipefail
 home="$(realpath "$(realpath "${BASH_SOURCE[0]}" | xargs dirname)"/.)"
 cd "$home"
 
-browserify -r mudom     -o app/static/browserified/mudom.js
 # browserify -r combokeys --standalone Combokeys -o app/static/browserified/combokeys.js
-browserify -r combokeys -o app/static/browserified/combokeys.js
+browserify -r mudom             --debug -o app/static/browserified/mudom.js
+browserify -r guy               --debug -o app/static/browserified/guy.js
+browserify -r datom             --debug -o app/static/browserified/datom.js
 
