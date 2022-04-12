@@ -119,7 +119,7 @@ demo_websocket = ( host, port, pid ) =>
     ws.send 'echo "helo from server"'
   ws.on 'message', ( data ) =>
     # if cfg.echo
-    process.stdout.write data # .toString()
+    # process.stdout.write data # .toString()
     return null
   return null
 
