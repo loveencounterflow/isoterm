@@ -79,42 +79,38 @@
     <script src="/static/browserified/guy.js"></script>
     <script src="/static/browserified/datom.js"></script>
     <script src="/static/ops.js"></script>
-    <script>
-      // this script is needed so the `defer`red script below works out fine (reason??)
-      globalThis.XXTERM = {};
-      </script>
     <!-- =============================================================================================== -->
     <script src="dist/client-bundle.js"></script>
     <script>
-    var tab = localStorage.getItem("tab");
+      var tab = localStorage.getItem("tab");
 
-    if(tab === null){
-        document.getElementById("options").style.display = "block";
-        document.getElementById("optionsbutton").classList.add("active");
-    }
-    else {
-      const tabContent = document.getElementsByClassName("tabContent");
-      let itr;
-      for (itr = 0; itr < tabContent.length; itr+=1) {
-        tabContent[itr].style.display = "none";
+      if(tab === null){
+          document.getElementById("options").style.display = "block";
+          document.getElementById("optionsbutton").classList.add("active");
       }
-      document.getElementById(""+tab+"").style.display = "block";
-      document.getElementById(""+tab+"button").classList.add("active");
-    }
-    function openSection(event, section) {
-      const tabContent = document.getElementsByClassName("tabContent");
-      let itr;
-      for (itr = 0; itr < tabContent.length; itr+=1) {
-        tabContent[itr].style.display = "none";
+      else {
+        const tabContent = document.getElementsByClassName("tabContent");
+        let itr;
+        for (itr = 0; itr < tabContent.length; itr+=1) {
+          tabContent[itr].style.display = "none";
+        }
+        document.getElementById(""+tab+"").style.display = "block";
+        document.getElementById(""+tab+"button").classList.add("active");
       }
-      const tabLinks = document.getElementsByClassName("tabLinks");
-      for (itr = 0; itr < tabLinks.length; itr+=1) {
-        tabLinks[itr].className = tabLinks[itr].className.replace(" active", "");
+      function openSection(event, section) {
+        const tabContent = document.getElementsByClassName("tabContent");
+        let itr;
+        for (itr = 0; itr < tabContent.length; itr+=1) {
+          tabContent[itr].style.display = "none";
+        }
+        const tabLinks = document.getElementsByClassName("tabLinks");
+        for (itr = 0; itr < tabLinks.length; itr+=1) {
+          tabLinks[itr].className = tabLinks[itr].className.replace(" active", "");
+        }
+        document.getElementById(section).style.display = "block";
+        localStorage.setItem("tab", section);
+        event.currentTarget.className += " active";
       }
-      document.getElementById(section).style.display = "block";
-      localStorage.setItem("tab", section);
-      event.currentTarget.className += " active";
-    }
 
     </script>
     <!-- =============================================================================================== -->
