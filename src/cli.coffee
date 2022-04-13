@@ -33,8 +33,6 @@ DATOM                     = require 'datom'
 #   new_xemitter
 #   select }                = DATOM.export()
 XE                        = DATOM.new_xemitter()
-XE.listen_to_all      ( key, d  ) -> debug '^cli/xemitter@445-27^', d
-XE.listen_to_unheard  ( key, d  ) -> debug '^cli/xemitter@445-27^', d
 
 
 #-----------------------------------------------------------------------------------------------------------
@@ -45,7 +43,7 @@ get_screen_dimensions = ->
 #-----------------------------------------------------------------------------------------------------------
 parse_arguments = ->
   if process.argv.length isnt 2
-    warn "^445-1^ this command doesn't accept parameters; terminating"
+    warn "^cli/parse_arguments@1^ this command doesn't accept parameters; terminating"
     process.exit 1
 
 #-----------------------------------------------------------------------------------------------------------
@@ -76,25 +74,25 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "#{address}", "--auto-open-devtools-for-tabs", ]
   # parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
-  help '^cli/browser@445-18^', "spawning #{cmd} #{parameters.join ' '}"
+  help '^cli/browser@4^', "spawning #{cmd} #{parameters.join ' '}"
   browser     = CP.spawn cmd, parameters, cp_cfg
-  browser.on 'error', ( error ) => warn '^cli/browser@445-19^', error
-  browser.on 'close',       => whisper '^cli/browser@445-20^', 'close'
-  browser.on 'disconnect',  => whisper '^cli/browser@445-21^', 'disconnect'
-  browser.on 'error',       => whisper '^cli/browser@445-22^', 'error'
-  browser.on 'message',     => whisper '^cli/browser@445-23^', 'message'
-  browser.on 'spawn',       => whisper '^cli/browser@445-23^', 'spawn'
+  browser.on 'error', ( error ) => warn '^cli/browser@5^', error
+  browser.on 'close',       => whisper '^cli/browser@6^', 'close'
+  browser.on 'disconnect',  => whisper '^cli/browser@7^', 'disconnect'
+  browser.on 'error',       => whisper '^cli/browser@8^', 'error'
+  browser.on 'message',     => whisper '^cli/browser@9^', 'message'
+  browser.on 'spawn',       => whisper '^cli/browser@10^', 'spawn'
   # browser.on 'spawn',       =>
-  #   whisper '^cli/browser@445-24^', 'spawn'
+  #   whisper '^cli/browser@11^', 'spawn'
   #   demo_websocket host, port, browser.pid
   #   return null
   #.........................................................................................................
   browser.on 'exit', =>
-    info CND.reverse " ^cli/browser@445-25^ browser exiting; terminating server process PID #{process.pid} "
+    info CND.reverse " ^cli/browser@12^ browser exiting; terminating server process PID #{process.pid} "
     process.exit 0
   #.........................................................................................................
   GUY.process.on_exit ->
-    info CND.reverse " ^cli/browser@445-26^ process exiting; terminating browser process PID #{browser.pid} "
+    info CND.reverse " ^cli/browser@13^ process exiting; terminating browser process PID #{browser.pid} "
     browser.kill()
   #.........................................................................................................
   return null
@@ -107,19 +105,21 @@ run = ->
   return null
 
 #-----------------------------------------------------------------------------------------------------------
+### TAINT consider to utilize XE messages from `server.js` instead of opening own WS instance ###
 demo_websocket = ( host, port, pid ) =>
   url     = "ws://#{host}:#{port}/terminals/#{pid}"
   WS      = require 'ws'
   ws      = new WS.WebSocket url
-  urge "^cli/demo_websocket@445-27^ opening websocket at #{url}"
-  urge "^cli/demo_websocket@445-27^ browser.pid #{pid}"
-  urge "^cli/demo_websocket@445-27^ process.pid #{process.pid}"
+  urge "^cli/demo_websocket@14^ opening websocket at #{url}"
+  urge "^cli/demo_websocket@15^ browser.pid #{pid}"
+  urge "^cli/demo_websocket@16^ process.pid #{process.pid}"
   ws.on 'open', () =>
-    urge "^cli/demo_websocket@445-27^ websocket open at #{url}"
+    urge "^cli/demo_websocket@17^ websocket open at #{url}"
     ws.send 'echo "helo from server"'
   ws.on 'message', ( data ) =>
     # if cfg.echo
     # process.stdout.write data # .toString()
+    XE.emit '^cli/browser/terminal/data', { data, }
     return null
   return null
 
@@ -134,6 +134,7 @@ XE.listen_to_unheard  ( key, d  ) -> whisper '^cli/xemitter@3^', d
 XE.listen_to '^cli/browser/terminal/data', ( { data, } ) ->
   whisper '^cli@18^', "received #{data.length} bytes"
   # process.stdout.write data
+
 
 ############################################################################################################
 do =>
