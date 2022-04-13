@@ -56,11 +56,16 @@ class Intercepted_console
 globalThis.console  = new Proxy console, new Intercepted_console()
 globalThis.log      = console.log
 globalThis.µ        = require 'mudom'
+globalThis.DATOM    = require 'datom'
+globalThis.GUY      = require 'guy'
+globalThis.XE       = DATOM.new_xemitter()
+globalThis.XXTERM   = {}
+
 # globalThis.XXTERM   = {};
-DATOM = require 'datom'
-{ new_datom
-  new_xemitter
-  select }                = DATOM.export()
+# { new_datom
+#   new_xemitter
+#   select }                = DATOM.export()
+
 
 # XE = new_xemitter()
 # XE.listen_to '^server/terminal/pid', ( { pid } ) -> log '^ops-late@7^', "PID: #{pid}"
