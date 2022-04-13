@@ -134,6 +134,7 @@ function startServer( XE ) {
     const send = USE_BINARY ? bufferUtf8(ws, 5) : buffer(ws, 5);
 
     term.on('data', function(data) {
+      XE.emit( '^server/ws/data', { data, } );
       try {
         send(data);
       } catch (ex) {
@@ -141,9 +142,11 @@ function startServer( XE ) {
       }
     });
     ws.on('message', function(msg) {
+      XE.emit( '^server/ws/message', { message: msg, } );
       term.write(msg);
     });
     ws.on('close', function () {
+      XE.emit( '^server/ws/close', null );
       term.kill();
       log('Closed terminal ' + term.pid);
       // Clean things up
