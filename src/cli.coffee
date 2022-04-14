@@ -26,7 +26,8 @@ H                         = require './helpers'
 port_pattern              = /^33[0-9]{3}$/
 # port_pattern              = /^8081$/
 GUY                       = require 'guy'
-_start_server             = require '../app/server.js'
+# _start_server             = require '../app/server.js'
+_start_server             = require './server2.js'
 #...........................................................................................................
 DATOM                     = require 'datom'
 # { new_datom
