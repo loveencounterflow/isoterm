@@ -9,7 +9,7 @@
 ############################################################################################################
 CND                       = require 'cnd'
 rpr                       = CND.rpr
-badge                     = 'XTERM'
+badge                     = 'XXTERM/CLI'
 debug                     = CND.get_logger 'debug',     badge
 warn                      = CND.get_logger 'warn',      badge
 info                      = CND.get_logger 'info',      badge
