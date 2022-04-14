@@ -93,10 +93,10 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   return null
 
 #-----------------------------------------------------------------------------------------------------------
-run = ->
+start_server_and_browser = ->
   { server, host, port, } = await start_server()
   { browser, }            = await start_browser { server, host, port, }
-  return null
+  return { server, host, port, browser, }
 
 #-----------------------------------------------------------------------------------------------------------
 ### TAINT consider to utilize XE messages from `server.js` instead of opening own WS instance ###
