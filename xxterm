@@ -1,8 +1,10 @@
-#!/usr/local/bin/node --trace-deprecation
+#!/usr/bin/env bash
 
-// #!/usr/bin/env node -S --trace-deprecation
+home="$(realpath "$(realpath "${BASH_SOURCE[0]}" | xargs dirname)"/.)"
+cd "$home"
 
-require( './lib/cli' );
-
-
+# "$home"/node_modules/.bin/nodexh --require=./lib/cli.js "$@"
+# #!/usr/local/bin/node --trace-deprecation
+# "$home"/node_modules/.bin/nodexh -p "require('./lib/cli.js');" "$@"
+./node_modules/.bin/nodexh ./lib/cli.js "$@"
 

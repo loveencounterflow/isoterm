@@ -33,18 +33,13 @@ DATOM                     = require 'datom'
 #   new_xemitter
 #   select }                = DATOM.export()
 XE                        = DATOM.new_xemitter()
+MIXA                      = require 'mixa'
 
 
 #-----------------------------------------------------------------------------------------------------------
 get_screen_dimensions = ->
   [ width, height, ] = ( require '@vamidicreations/screenres' ).get()
   return { width, height, }
-
-#-----------------------------------------------------------------------------------------------------------
-parse_arguments = ->
-  if process.argv.length isnt 2
-    warn "^cli/parse_arguments@1^ this command doesn't accept parameters; terminating"
-    process.exit 1
 
 #-----------------------------------------------------------------------------------------------------------
 start_server = -> new Promise ( resolve, reject ) =>
@@ -99,7 +94,6 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
 
 #-----------------------------------------------------------------------------------------------------------
 run = ->
-  parse_arguments()
   { server, host, port, } = await start_server()
   { browser, }            = await start_browser { server, host, port, }
   return null
@@ -136,10 +130,46 @@ XE.listen_to '^cli/browser/terminal/data', ( { data, } ) ->
   # process.stdout.write data
 
 
+
+#===========================================================================================================
+# CLI
+#-----------------------------------------------------------------------------------------------------------
+cli = -> new Promise ( done ) =>
+  #.........................................................................................................
+  jobdefs =
+    default_command: 'start'
+    commands:
+      #-----------------------------------------------------------------------------------------------------
+      'start':
+        description:  "start browser with terminal"
+        runner: ( d ) =>
+          await start_server_and_browser()
+          done()
+      # #-----------------------------------------------------------------------------------------------------
+      # 'copy-data':
+      #   description:  "copy data into DB; specify individual DSKs or 'all'"
+      #   flags:
+      #     'input':
+      #       alias:        'i'
+      #       type:         String
+      #       positional:   true
+      #       multiple:     'greedy'
+      #       description:  "input file(s)"
+      #   runner: ( d ) =>
+      #     unless ( dsks = d.verdict.parameters.input )?
+      #       warn "need at least one DSK; use 'all' to copy data from all files"
+      #     debug '^33344^', { dsks, }
+      #     await copy_data dsks
+      #     done()
+  #.........................................................................................................
+  MIXA.run jobdefs, process.argv
+  return null
+
+
 ############################################################################################################
 do =>
   # GUY.process.on_exit ->
   #   info CND.reverse " ^409-7^ process exiting "
-  await run()
+  await cli()
 
 
