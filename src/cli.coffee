@@ -126,7 +126,12 @@ XE.listen_to_unheard  ( key, d  ) -> whisper '^cli/xemitter@3^', d
 
 #-----------------------------------------------------------------------------------------------------------
 XE.listen_to '^cli/browser/terminal/data', ( { data, } ) ->
-  whisper '^cli@18^', "received #{data.length} bytes"
+  # whisper '^cli@18^', "received #{data.length} bytes"
+  # process.stdout.write data
+
+#-----------------------------------------------------------------------------------------------------------
+XE.listen_to '^server/ws/data', ( { data, } ) ->
+  # whisper '^cli@18a^', "received #{data.length} bytes"
   # process.stdout.write data
 
 
