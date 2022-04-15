@@ -156,8 +156,8 @@ function startServer( XE ) {
   });
   // ### TAINT must validate host, port
   // const host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
-  const host = process.env.xxterm_host || '127.0.0.1';
-  const port = process.env.xxterm_port || 3000;
+  const host = process.env.isoterm_host || '127.0.0.1';
+  const port = process.env.isoterm_port || 3000;
   log( CND.blue( '^server.js@734-1^', { host, port, } ) );
 
   app.on( 'error',            ( error ) => { log( CND.blue( '^server.js@734-8^', error ) ); } );

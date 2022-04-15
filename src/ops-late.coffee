@@ -56,7 +56,7 @@
 # globalThis.console  = new Proxy console, new Intercepted_console()
 # globalThis.log      = console.log
 # globalThis.µ        = require 'mudom'
-# # globalThis.XXTERM   = {};
+# # globalThis.ISOTERM   = {};
 # Combokeys           = require 'combokeys'
 # count               = 0
 # # ckeys               = new Combokeys document.documentElement

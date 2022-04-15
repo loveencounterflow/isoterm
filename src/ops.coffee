@@ -59,9 +59,9 @@ globalThis.µ        = require 'mudom'
 globalThis.DATOM    = require 'datom'
 globalThis.GUY      = require 'guy'
 globalThis.XE       = DATOM.new_xemitter()
-globalThis.XXTERM   = {}
+globalThis.ISOTERM  = {}
 
-# globalThis.XXTERM   = {};
+# globalThis.ISOTERM   = {};
 # { new_datom
 #   new_xemitter
 #   select }                = DATOM.export()

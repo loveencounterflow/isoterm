@@ -9,7 +9,7 @@
 ############################################################################################################
 CND                       = require 'cnd'
 rpr                       = CND.rpr
-badge                     = 'XXTERM/HELPERS'
+badge                     = 'ISOTERM/HELPERS'
 debug                     = CND.get_logger 'debug',     badge
 warn                      = CND.get_logger 'warn',      badge
 info                      = CND.get_logger 'info',      badge
@@ -61,17 +61,17 @@ defaults =
   for _ in [ 1 .. cfg.tries ] by +1
     port = randex.gen()
     unless /^[0-9]+$/.test port
-      throw new Error "^xxterm/find_free_port@1^ the supplied pattern resulted in an illegal port number: #{rpr port}"
+      throw new Error "^isoterm/find_free_port@1^ the supplied pattern resulted in an illegal port number: #{rpr port}"
     port = parseInt port, 10
     unless 1024 <= port <= 65535
-      whisper "^xxterm/find_free_port@2^ port number not in range: #{rpr port}" if cfg.verbose
+      whisper "^isoterm/find_free_port@2^ port number not in range: #{rpr port}" if cfg.verbose
       continue
     count++
-    whisper "^xxterm/find_free_port@2^ checking whether port #{rpr port} is free" if cfg.verbose
+    whisper "^isoterm/find_free_port@2^ checking whether port #{rpr port} is free" if cfg.verbose
     # debug '^332^', post_is_used port
     return port if not await post_is_used port
   return cfg.fallback unless cfg.fallback is misfit
-  throw new Error "^xxterm/find_free_port@3^ unable to find port with #{rpr cfg}, tried #{count} times"
+  throw new Error "^isoterm/find_free_port@3^ unable to find port with #{rpr cfg}, tried #{count} times"
 
 
 ############################################################################################################

@@ -4,7 +4,7 @@
 <img src='app/static/logo.png'>
 
 
-# XXTerm
+# ISOTerm
 
 
 
@@ -24,7 +24,7 @@
 
 ## A Terminal With Precisely Configurable Fonts Using CSS Unicode Ranges
 
-* Why XXTerm
+* Why ISOTerm
 * Why CSS Unicode Ranges
 
 ## Installation
@@ -34,12 +34,12 @@ Clone this repo into a convenient location, then run `pnpm install` (or `npm ins
 
 ```bash
 pnpm add -g yarn # or `npm install -g yarn`
-git clone https://github.com/loveencounterflow/xxterm
-cd /path/to/xxterm
+git clone https://github.com/loveencounterflow/isoterm
+cd /path/to/isoterm
 pnpm install
 ```
 
-The `clone` command will take a little while because XXTerm includes some fairly large CJK fonts (more or
+The `clone` command will take a little while because ISOTerm includes some fairly large CJK fonts (more or
 less the reason I started this is to have good coverage of CJK codepoints). The `install` command will also
 take some time because it calls `git-clone-xtermjs`, a script that clones and prepares
 [xterm.js](https://github.com/xtermjs/xterm.js).
@@ -66,7 +66,7 @@ sudo apt install -y chromium-browser
 When installation has completed, start a browser window displaying a terminal by executing
 
 ```bash
-./xxterm
+./isoterm
 ```
 
 This will call `chromium --app=http://localhost:3000`; the browser window will show no menus and no address
@@ -75,7 +75,7 @@ window.
 
 ## Live Replay / Echo
 
-As of [commit&nbsp;#3768e37aaa0](https://github.com/loveencounterflow/xxterm/commit/3768e37aaa0486895bbe9e86d7bbccfdc42cdef8)
+As of [commit&nbsp;#3768e37aaa0](https://github.com/loveencounterflow/isoterm/commit/3768e37aaa0486895bbe9e86d7bbccfdc42cdef8)
 the parent process can echo everything that's going on in the web terminal, including colors, `zsh` line
 completions, and even `less` paging (including the ability to clear the screen) and more advanced TUI stuff
 like `htop` just work. Not sure ATM why that would be useful but it does make for a nice demo!
@@ -92,7 +92,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
   `dist` or by removing webpack altogether)
 * **[–]** Use exit handler to ensure server process gets terminated
 * **[–]** make echoing of web terminal configurable
-* **[–]** `exit` in web terminal should ternminate XXTerm (as it does in other terminal emulators)
+* **[–]** `exit` in web terminal should ternminate ISOTerm (as it does in other terminal emulators)
 * **[–]** implement On-Page Script (`ops.js`) to avoid having to code insed of `index.html`
 * **[–]** can we mirror errors &c that happen in the browser console to the main process (`cli.js`)?
 * **[–]** make browser console output easier to look at from the web terminal
@@ -117,7 +117,7 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[+]** Icon (sorta)
 * **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js
 * **[+]** remove dependency on https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js
-* **[+]** each `xxterm` instance should look for its own free port, fail with message in case it doesn't
+* **[+]** each `isoterm` instance should look for its own free port, fail with message in case it doesn't
   succeed in the configured range, with configured end digits
 * **[+]** implement opening browser in fullscreen
 * **[+]** implement technique to add key shortcut that overrides browser defaults such as `ctrl+l`, `ctrl+k`

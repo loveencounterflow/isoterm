@@ -9,7 +9,7 @@
 ############################################################################################################
 CND                       = require 'cnd'
 rpr                       = CND.rpr
-badge                     = 'XXTERM/CLI'
+badge                     = 'ISOTERM/CLI'
 debug                     = CND.get_logger 'debug',     badge
 warn                      = CND.get_logger 'warn',      badge
 info                      = CND.get_logger 'info',      badge
@@ -44,10 +44,10 @@ get_screen_dimensions = ->
 
 #-----------------------------------------------------------------------------------------------------------
 start_server = -> new Promise ( resolve, reject ) =>
-  host                    = '127.0.0.1'
-  port                    = await H.find_free_port { port: port_pattern, fallback: null, }
-  process.env.xxterm_host = host
-  process.env.xxterm_port = port
+  host                      = '127.0.0.1'
+  port                      = await H.find_free_port { port: port_pattern, fallback: null, }
+  process.env.isoterm_host  = host
+  process.env.isoterm_port  = port
   process.chdir xterm_path
   ### TAINT use callback or events to communicate data such as `term.pid` from `server.js` ###
   await _start_server XE
