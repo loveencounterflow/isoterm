@@ -5,12 +5,12 @@
   "main": "./.",
   "scripts": {
     "build": "coffee --map -o lib -c src",
-    "test": "echo see 'https://github.com/loveencounterflow/hengist/tree/master/dev/xxterm' (planned)",
+    "test": "echo see 'https://github.com/loveencounterflow/hengist/tree/master/dev/isoterm' (planned)",
     "preinstall": "./git-clone-xtermjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/loveencounterflow/xxterm.git"
+    "url": "git+https://github.com/loveencounterflow/isoterm.git"
   },
   "keywords": [
     "xterm",
@@ -23,9 +23,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/loveencounterflow/xxterm/issues"
+    "url": "https://github.com/loveencounterflow/isoterm/issues"
   },
-  "homepage": "https://github.com/loveencounterflow/xxterm#readme",
+  "homepage": "https://github.com/loveencounterflow/isoterm#readme",
   "dependencies": {
     "@vamidicreations/screenres": "^2.0.3",
     "cnd": "^9.2.2",
