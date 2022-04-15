@@ -35,6 +35,7 @@ DATOM                     = require 'datom'
 #   select }                = DATOM.export()
 XE                        = DATOM.new_xemitter()
 MIXA                      = require 'mixa'
+isoterm_cfg               = MIXA.configurator.read_cfg()
 
 
 #-----------------------------------------------------------------------------------------------------------
@@ -44,7 +45,9 @@ get_screen_dimensions = ->
 
 #-----------------------------------------------------------------------------------------------------------
 start_server = -> new Promise ( resolve, reject ) =>
-  host                      = '127.0.0.1'
+  host                      = isoterm_cfg.server?.host          ? '127.0.0.1'
+  port_pattern              = isoterm_cfg.server?.port_pattern  ? '^333[0-9]$'
+  port_pattern              = new RegExp port_pattern
   port                      = await H.find_free_port { port: port_pattern, fallback: null, }
   process.env.isoterm_host  = host
   process.env.isoterm_port  = port

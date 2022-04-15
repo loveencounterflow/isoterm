@@ -1,0 +1,13 @@
+
+
+title = "ISOTerm Default Configuration"
+
+[server]
+port_pattern  = '^33[0-9]{3}$'
+host          = 'localhost'
+
+[app]
+title         = "ISOTerm"
+
+
+
