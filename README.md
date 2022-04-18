@@ -103,6 +103,8 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
   like address bar)
 * **[–]** find out how to implement custom key shortcuts (key bindings) when terminal DOM element has focus;
   currently this is blocked by `xterm/src/browser/Terminal.ts:446` &al.
+* **[–]** ensure standard key bindings like `shift+ctrl+c`, `shift+ctrl+v` do work as intended (and only as
+  intended)
 * **[–]** infinite zoom plane / utopia planitia?
 * **[–]** clarify why in `app/index.html` a useless literal `<script>` tag is needed even when the `defer`
   attribute on the `<script src="dist/client-bundle.js"></script>` tag has been removed—this looks like a
