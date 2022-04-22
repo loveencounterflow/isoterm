@@ -37,7 +37,6 @@ XE                        = DATOM.new_xemitter()
 MIXA                      = require 'mixa'
 isoterm_cfg               = MIXA.configurator.read_cfg()
 
-
 #-----------------------------------------------------------------------------------------------------------
 get_screen_dimensions = ->
   [ width, height, ] = ( require '@vamidicreations/screenres' ).get()
@@ -68,8 +67,10 @@ start_browser = ( cfg ) -> new Promise ( resolve, reject ) =>
   ### TAINT get address from `start_server()` ###
   ### TAINT validate address not malformed ###
   address     = "http://#{host}:#{port}"
-  screen      = get_screen_dimensions()
-  parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "--app=#{address}", ]
+  # screen      = get_screen_dimensions()
+  parameters  = [ "--start-maximized", "--app=#{address}", ]
+  # parameters  = [ "--start-fullscreen", "--app=#{address}", ]
+  # parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "--app=#{address}", ]
   # parameters  = [ "--window-position=0,0", "--window-size=#{screen.width},#{screen.height}", "#{address}", "--auto-open-devtools-for-tabs", ]
   # parameters  = [ "--app=#{address}", ]
   cp_cfg      = { detached: false, }
