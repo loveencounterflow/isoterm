@@ -17,6 +17,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Live Replay / Echo](#live-replay--echo)
+- [Appendix: Relevant Chrom{e|ium} Command Line Flags](#appendix-relevant-chromeium-command-line-flags)
 - [To Do](#to-do)
 - [Is Done](#is-done)
 
@@ -80,7 +81,32 @@ the parent process can echo everything that's going on in the web terminal, incl
 completions, and even `less` paging (including the ability to clear the screen) and more advanced TUI stuff
 like `htop` just work. Not sure ATM why that would be useful but it does make for a nice demo!
 
+## Appendix: Relevant Chrom{e|ium} Command Line Flags
 
+* see https://codefodder.github.io/chrome-chromium-startup-flags/
+* see https://peter.sh/experiments/chromium-command-line-switches/
+
+
+```sh
+--window-position=0,0
+--window-size=1920,1080
+--kiosk
+--start-fullscreen
+--start-maximized
+--incognito
+--disable-infobars
+--no-default-browser-check
+--noerrdialogs
+--disable-crash-report
+--ignore-certificate-errors
+--test-type
+--disable-translate
+--fast
+--fast-start
+--disable-features=TranslateUI
+--disk-cache-dir=/dev/null
+--password-store=basic
+```
 
 ## To Do
 
@@ -104,7 +130,13 @@ like `htop` just work. Not sure ATM why that would be useful but it does make fo
 * **[–]** find out how to implement custom key shortcuts (key bindings) when terminal DOM element has focus;
   currently this is blocked by `xterm/src/browser/Terminal.ts:446` &al.
 * **[–]** ensure standard key bindings like `shift+ctrl+c`, `shift+ctrl+v` do work as intended (and only as
-  intended)
+  intended). **NOTE** Interestingly, `alt+f4` will exit the browser.
+* **[–]** currently when using `--start-fullscreen` there is no obvious way to quit the browser or even
+  leave fullscreen by pressing `F11`, not even when focusing are outside of the terminal (there is a not-so
+  obvious way; move mouse cursor along top edge will show a circled `X` symbol that, when clicked, will make
+  the browser exit fullscreen).
+* **[–]** is it possible to hide the title bar similar to when in fullscreen but *without* also hiding the
+  OS task bar?
 * **[–]** infinite zoom plane / utopia planitia?
 * **[–]** clarify why in `app/index.html` a useless literal `<script>` tag is needed even when the `defer`
   attribute on the `<script src="dist/client-bundle.js"></script>` tag has been removed—this looks like a
