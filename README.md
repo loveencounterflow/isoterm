@@ -6,7 +6,35 @@
 
 # ISOTerm
 
+**Note**—the dependency tree of this project looks like this:
 
+![](https://imgs.xkcd.com/comics/dependency_2x.png)
+
+And while it did work in April 2022, trying to install it according to the instructions given below
+in March 2023 results in series of failures. I did manage to update some of the dependencies and
+made the thing run its crazy installtion script, but only with `npm`, *not* with `pnpm` for reasons that
+are totally not clear to me. Then, running `./isoterm` does open a browser window, in which, however the terminal element
+is missing. The console output in dev tools does show some problems:
+
+```
+client-bundle.js:1          Failed to load resource: the server responded with a status of 404 (Not Found)
+ops.coffee:21 ^334-1^ log
+ops.coffee:21 ^334-1^ debug
+ops.coffee:21 ^334-1^ log
+ops.coffee:21 ^334-1^ debug
+ops.coffee:21 ^334-1^ log
+ops.coffee:21 ^334-1^ log
+localhost/:1 Refused to execute script from 'http://localhost:33281/dist/client-bundle.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled.
+ops.coffee:21 ^334-1^ log
+ops-late.coffee:76 ^ops-late@4^ OK
+ops-late.coffee:77 ^ops-late@5^ OPS loaded
+ops.coffee:21 ^334-1^ log
+ops-late.coffee:78 Uncaught ReferenceError: term is not defined
+    at ops-late.coffee:78:29
+    at ops-late.coffee:5:1
+```
+
+—so, hopefully, after fixing those, the terminal will become operational again.
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
