@@ -28,7 +28,7 @@
   "homepage": "https://github.com/loveencounterflow/isoterm#readme",
   "dependencies": {
     "@vamidicreations/screenres": "^2.0.3",
-    "cnd": "^9.2.2",
+    "cnd": "9.3",
     "datom": "10.0.1",
     "express": ">=5.0.0-beta.1",
     "guy": "4.1.2",
